@@ -1,0 +1,24 @@
+.kb{
+    height: 10px;
+    width: 100%;
+    margin: 5px;
+}
+legend{
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    font-size: 14px;
+}
+hr{
+    margin: 2px;
+}
+.total p{
+    font-size: 12px;
+    margin-top: 30px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+.modal-dialog{
+    max-width: 800px;
+}
+.model-delete{
+    max-width: 500px;
+}

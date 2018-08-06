@@ -1,4 +1,4 @@
-package com.pty.driverexam.user.model;
+package com.pylw.driverexam.user.model;
 
 public class User {
 	int user_id;

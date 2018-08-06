@@ -203,7 +203,8 @@
                     this.login.password = '';
                     console.log(obj);//测试用
                     axios.post(
-                        '/login', obj
+                        '/login', obj,
+                        {headers: {'Content-Type': 'application/json'}}
                     )
                         .then(function (response) {
                             console.log(response);

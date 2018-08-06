@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>在线驾考答题系统</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+    <!-- MD5 -->
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid py-2">
+        <div class="container">
+            <div class="row text-primary">
+                <h2 style="font-size: 45px;font-family: SimHei">在线驾考答题系统</h2>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-link offset-6" data-toggle="modal" data-target="#exampleModal">
+                    登录
+                </button>
+                <button type="button" class="btn btn-link" id="register">
+                    注册
+                </button>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-pills bg-dark nav-dark">
+        <li class="nav-item">
+            <a class="nav-link" href="#">首页</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">科目一</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">模拟考试</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">专项练习</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">单选题</a>
+                    <a class="dropdown-item" href="#">多选题</a>
+                    <a class="dropdown-item" href="#">判断题</a>
+                </div>
+                <a class="dropdown-item" href="#">随机练习</a>
+                <a class="dropdown-item" href="#">顺序练习</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">科目二</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">模拟考试</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">专项练习</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">单选题</a>
+                    <a class="dropdown-item" href="#">多选题</a>
+                    <a class="dropdown-item" href="#">判断题</a>
+                </div>
+                <a class="dropdown-item" href="#">随机练习</a>
+                <a class="dropdown-item" href="#">顺序练习</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">科目三</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">模拟考试</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">专项练习</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">单选题</a>
+                    <a class="dropdown-item" href="#">多选题</a>
+                    <a class="dropdown-item" href="#">判断题</a>
+                </div>
+                <a class="dropdown-item" href="#">随机练习</a>
+                <a class="dropdown-item" href="#">顺序练习</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">科目四</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">模拟考试</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">专项练习</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">单选题</a>
+                    <a class="dropdown-item" href="#">多选题</a>
+                    <a class="dropdown-item" href="#">判断题</a>
+                </div>
+                <a class="dropdown-item" href="#">随机练习</a>
+                <a class="dropdown-item" href="#">顺序练习</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">错题练习</a>
+        </li>
+    </ul>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop='static' data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">用户登录</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form id="updateform">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 col-form-label">用户名</label>
+                                <div class="col-sm-5">
+                                    <input type="text" v-model="login.name" class="form-control" name="name" id="name" placeholder="手机/邮箱"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-3 col-form-label">密码</label>
+                                <div class="col-sm-5">
+                                    <input type="password" v-model="login.password" maxlength="16" class="form-control" name="password" id="password" placeholder="请输入密码">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="verificationcode" class="col-sm-3 col-form-label">验证码</label>
+                                <div class="col-sm-3">
+                                    <input type="text" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)"
+                                        maxlength="4" class="form-control" name="verificationcode" id="verificationcode" placeholder="请输入验证码">
+                                </div>
+                                <canvas id="canvas" width="140px" height="38px"></canvas>
+                                <a href="#" id="as" style="text-decoration: none;">看不清图片</a>
+                                <button @click="send" type="button" class="btn" name="login" id="login"></button>
+                                <p id="msg" style="color: red" class="col-sm-8"></p>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <nav class="nav">
+                            <a class="nav-link active" href="getpassword.html">忘记密码</a>
+                        </nav>
+                        <button type="button" class="btn btn-primary" name="logins" id="logins">登录</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+</body>
+<script>
+    $(function () {
+        $('#login').hide();
+        $('#msg').hide();
+    });
+    $('#exampleModal').on('shown.bs.modal', function (e) {
+        $('#name').focus();
+    });
+    $('#exampleModal').on('hidden.bs.modal', function (e) {
+        $('#name').val("");
+        $('#password').val("");
+        $('#verificationcode').val("");
+        drawPic();
+    });
+    $('#logins').click(function () {
+        $('#login').click();
+    });
+    $('#register').click(function () {
+        $(window).attr('location', 'register.html');
+    });
+    new Vue({
+        el: '#updateform',
+        data: {
+            login: {
+                name: "",
+                password: "",
+            }
+        },
+        methods: {
+            send() {
+                $('#msg').show();
+                console.log("a");
+                var as = $('#verificationcode').val();
+                if (as == 0) {
+                    $('#msg').text('验证码不能为空');
+                    this.login.password = '';
+                    drawPic();
+                } else if (as != asd) {
+                    $('#msg').text('验证码不正确');
+                    this.login.password = '';
+                    drawPic();
+                } else if (as == asd) {
+                    this.login.password = md5(this.login.password);
+                    var obj = JSON.stringify(this.login)
+                    this.login.password = '';
+                    console.log(obj);//测试用
+                    axios.post(
+                        '/login', obj
+                    )
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert('登录失败');//测试用
+                            // location.href="register.html";//测试用
+                        });
+                }
+            }
+        }
+    });
+    var asd;
+    // 验证码的生成
+    function randomNum(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+    function randomColor(min, max) {
+        var _r = randomNum(min, max);
+        var _g = randomNum(min, max);
+        var _b = randomNum(min, max);
+        return "rgb(" + _r + "," + _g + "," + _b + ")";
+    }
+    document.getElementById("as").onclick = function (e) {
+        drawPic();
+    };
+    function drawPic() {
+        var $canvas = document.getElementById("canvas");
+        var _str = "0123456789";
+        var _picTxt = "";
+        var _num = 4;
+        var _width = $canvas.width;
+        var _height = $canvas.height;
+        var ctx = $canvas.getContext("2d");
+        ctx.textBaseline = "bottom";
+        ctx.fillStyle = randomColor(180, 240);
+        ctx.fillRect(0, 0, _width, _height);
+        for (var i = 0; i < _num; i++) {
+            var x = (_width - 10) / _num * i + 10;
+            var y = randomNum(_height / 2, _height);
+            var deg = randomNum(-45, 45);
+            var txt = _str[randomNum(0, _str.length)];
+            _picTxt += txt;
+            ctx.fillStyle = randomColor(10, 100);
+            ctx.font = randomNum(16, 40) + "px SimHei";
+            ctx.translate(x, y);
+            ctx.rotate(deg * Math.PI / 180);
+            ctx.fillText(txt, 0, 0);
+            ctx.rotate(-deg * Math.PI / 180);
+            ctx.translate(-x, -y);
+        }
+        for (var i = 0; i < _num; i++) {
+            ctx.strokeStyle = randomColor(90, 180);
+            ctx.beginPath();
+            ctx.moveTo(randomNum(0, _width), randomNum(0, _height));
+            ctx.lineTo(randomNum(0, _width), randomNum(0, _height));
+            ctx.stroke();
+        }
+        for (var i = 0; i < _num * 10; i++) {
+            ctx.fillStyle = randomColor(0, 255);
+            ctx.beginPath();
+            ctx.arc(randomNum(0, _width), randomNum(0, _height), 1, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        asd = parseInt(_picTxt);
+        return _picTxt;
+    }
+    drawPic();
+    // 登录按钮设置快捷键为回车键
+    $(document).keydown(function (event) {
+        if (event.keyCode == '13') {
+            $('#login').click();
+        }
+    });
+</script>
+
+</html>

@@ -13,11 +13,17 @@ public class LoginService {
 	@Autowired
 	UserMapper userMapper;
 	
-	public User find(String phone) {
-		return userMapper.findUserbyPhone(phone);
-	}
-	
 	public List<User> findAll(){
 		return userMapper.findAllUsers();
+	}
+	
+	public boolean isExist(String account,String password) {
+		List<User> l = userMapper.findUserbyPhone(account, password);
+		List<User> l2= userMapper.findUserbyEmail(account, password);
+		if(l.size() == 0 && l2.size() == 0) {
+			return false;	
+		}
+//		System.out.println(l.size());
+		return true;
 	}
 }

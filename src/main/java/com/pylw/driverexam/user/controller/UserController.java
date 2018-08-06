@@ -20,9 +20,10 @@ public class UserController {
 	
 	@PostMapping("login")
 	@ResponseBody
-	public User Login(User user) {
-		
-		return user;
+	public boolean Login(@RequestBody Map<String ,String> map) {
+		String phone = map.get("name");
+		String password = map.get("password");
+		return loginService.isExist(phone ,password);
 	}
 	
 	@GetMapping("test")

@@ -17,6 +17,7 @@ var user = new Vue({
                 join_date:''
             }
         },
+
         user:{
             id:undefined,
             phone:'',
@@ -29,27 +30,8 @@ var user = new Vue({
                 join_date:''
             }
         },
-        cityList:['长沙'],
-        userList:[{id:1,
-            phone:'123123123123',
-            email:'3424234234234',
-            userInfo:{
-                username:'app',
-                sex:'男',
-                city:'长沙',
-                license_type:'A1',
-                join_date:''
-            }},
-            {id:2,
-                phone:'15292271226',
-                email:'2795159345@qq.com',
-                userInfo:{
-                    username:'wsz',
-                    sex:'男',
-                    city:'长沙',
-                    license_type:'A1',
-                    join_date:''
-                }}]
+        cityList:['长沙'], // 得补全全部city
+        userList:[],
     },
     created() {
         // 获取数据库用户总数
@@ -97,21 +79,21 @@ var user = new Vue({
             // 检测所更新数据邮件或手机号 是否已存在
             // 补  通过axios
 
-            if(true){  // 如果 phone 存在  
+            if(false){  // 如果 phone 存在  
                 // 此处不能用 $("#")
                 var phone = document.getElementById("uphone");
                 phone.setCustomValidity('该电话已注册');
                 return false;
             }
 
-            if(true){  // 如果 phone 存在  
+            if(false){  // 如果 phone 存在  
                 // 此处不能用 $("#")
                 var phone = document.getElementById("uemail");
                 phone.setCustomValidity('该邮箱已注册');
                 return false;
             }
 
-            // 更新数据库数据
+            // 更新数据库数据  密码无需更新
             // 补  通过axios
 
             for(var i=0;i<this.userList.length;i++){
@@ -128,22 +110,22 @@ var user = new Vue({
             // 检测所更新数据邮件或手机号 是否已存在
             // 补  通过axios
 
-            if(true){  // 如果 phone 存在  
+            if(false){  // 如果 phone 存在  
                 // 此处不能用 $("#")
                 var phone = document.getElementById("phone");
                 phone.setCustomValidity('该电话已注册');
                 return false;
             }
 
-            if(true){  // 如果 phone 存在  
+            if(false){  // 如果 phone 存在  
                 // 此处不能用 $("#")
                 var phone = document.getElementById("email");
                 phone.setCustomValidity('该邮箱已注册');
                 return false;
             }
 
-
-            // 增加数据
+            user.userInfo.join_date = new Date();  // 默认参加时间为当前时间
+            // 增加数据  后台设置默认密码为
             // 补  通过axios
 
             // 总数增加

@@ -16,27 +16,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pylw.driverexam.user.model.User;
-import com.pylw.driverexam.user.service.LoginService;
+import com.pylw.driverexam.user.service.UserService;
 
 
 @Controller
 public class UserController {
 	
 	@Autowired
-	LoginService loginService;
+	UserService userService;
 	
+
 	@PostMapping("login")
 	@ResponseBody
 	public boolean Login(@RequestBody Map<String ,String> map) {
-		String phone = map.get("name");
-		String password = map.get("password");
-		return loginService.isExist(phone ,password);
+		return userService.login(map.get("name") ,map.get("password"));
+	}
+	
+	
+	@PostMapping("register/name")
+	@ResponseBody
+	public boolean isNameExist(@RequestBody Map<String ,String> map) {
+		return userService.haveName(map.get("name"));
+	}
+	
+	@PostMapping("register")
+	@ResponseBody
+	public boolean register(@RequestBody Map<String ,String> map) {
+		String account = map.get("name");
+		User u = new User();
+		if(account.contains("@"))
+			u.setEmail(account);
+		else u.setPhone(account);
+		u.setPassword(map.get("password"));
+		
+		userService.add(u);
+		return true;
 	}
 	
 	@GetMapping("test")
 	@ResponseBody
 	public List<User> Login() {
-		return loginService.findAll();
+		return userService.findAll();
 	}
 	
 }

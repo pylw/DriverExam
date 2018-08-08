@@ -1,10 +1,16 @@
+// 可自行根据后台接口进行修改
 var user = new Vue({
     el:"#user",
     data:{
+        // 总数
         total : undefined,
+        // 每页显示大小
         size : 10,
+        // 总页数
         page: undefined,
+        // 当前页
         current : 1,
+        // userInfo 信息  需要修改 根据后台接收参数修改  更改后 html页面{{}}内容也要修改  此字段用于修改
         u:{
             id:undefined,
             phone:'',
@@ -17,7 +23,7 @@ var user = new Vue({
                 join_date:''
             }
         },
-
+        // userInfo 信息  需要修改 根据后台接收参数修改  更改后 html页面{{}}内容也要修改  此字段用于 添加和查询
         user:{
             id:undefined,
             phone:'',
@@ -30,9 +36,12 @@ var user = new Vue({
                 join_date:''
             }
         },
+        // 所有城市 有待增加 
         cityList:['长沙'], // 得补全全部city
+        // 用户列表 需要获取
         userList:[],
     },
+    // 初始化
     created() {
         // 获取数据库用户总数
         // 补  通过axios
@@ -52,6 +61,7 @@ var user = new Vue({
 
     // },
     methods:{
+        // 进行初始化
         userInit(user,id=undefined,phone='',email='',username='',sex='',city='',license_type='',join_date=''){
             user.id=id;
             user.phone=phone;
@@ -62,16 +72,20 @@ var user = new Vue({
             user.userInfo.license_type=license_type;
             user.userInfo.join_date=join_date
         },
+        // 更新userList
         updateList(){
             // 封装 获得List 传参(当前页this.current,每页this.size) 
             // 补  通过axios
         },
+        // 点击编辑按钮后的信息处理
         showEdit(uu){
             this.userInit(this.u,uu.id,uu.phone,uu.email,uu.userInfo.username,uu.userInfo.sex,uu.userInfo.city,uu.userInfo.license_type,uu.userInfo.join_date);
         },
+        // 点击删除按钮的处理
         showRemove(id){
             this.userInit(this.u,id);
         },
+        // 更新处理
         update(user){
             if(user.phone==''|| user.userInfo.username==''||user.email==''){
                 return false;
@@ -103,6 +117,7 @@ var user = new Vue({
             }
             $('#updateModal').modal('hide');
         },
+        // 添加信息
         add(user){
             if(user.phone==''|| user.userInfo.username==''||user.email==''||user.userInfo.sex==''||user.userInfo.city==''||user.userInfo.license_type==''){
                 return false;
@@ -139,6 +154,7 @@ var user = new Vue({
             // 添加成功 将user清空
             this.userInit(user);
         },
+        // 查询处理
         query(user){
             // 获取 total  并根据total 更改current
             // 补  通过axios
@@ -149,6 +165,7 @@ var user = new Vue({
             // 更新userList
             this.updateList();
         },
+        // 删除处理
         remove(id){
             // 从数据库删除数据
             // 补  通过axios
@@ -163,12 +180,14 @@ var user = new Vue({
             // 更新List
             this.updateList();
         },
+        // 首页
         first(){
             this.current = 1;
             
             // 更新List
             this.updateList();
         },
+        // 前一页
         pre(){
             if(this.current==1){
                 return false;
@@ -178,6 +197,7 @@ var user = new Vue({
             // 更新List
             this.updateList();
         },
+        // 点击页面 跳转页
         pn(p){
             if(p>this.current){
                 this.current = p;
@@ -188,6 +208,7 @@ var user = new Vue({
             // 更新List
             this.updateList();
         },
+        // 下一页
         next(){
             if(this.current==this.page){
                 return false;
@@ -196,6 +217,7 @@ var user = new Vue({
             // 更新List
             this.updateList();
         },
+        // 尾页
         tail(){
             this.current = this.page;
             // 更新List

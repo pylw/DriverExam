@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.pylw.driverexam.user.mapper.UserMapper;
 import com.pylw.driverexam.user.model.User;
+import com.pylw.driverexam.user.model.UserInfo;
 
 @Service
 public class UserService {
 	@Autowired
 	UserMapper userMapper;
 	
-	public List<User> findAll(){
+	public List<UserInfo> findAll(){
 		return userMapper.findAllUsers();
 	}
 	

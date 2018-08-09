@@ -8,11 +8,12 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.pylw.driverexam.user.model.User;
+import com.pylw.driverexam.user.model.UserInfo;
 
 @Mapper
 public interface UserMapper {
-	@Select("select * from users")
-	List<User> findAllUsers();
+	@Select("select * from v_user")
+	List<UserInfo> findAllUsers();
 	
 	
 	@Select("select * from users where phone = #{phone} and password = #{password}")

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous"> 
+    <link rel="stylesheet" href="../css/front/test.css">
+</head>
+  <body>
+      <div id="test">
+          <div class="container">
+              <div class="exam">
+                  <div class="row clearfix">
+                      <div class="coll col1">
+                          <fieldset class="testRoom">
+                              <legend>理论考试</legend>
+                              <span>第01考台</span>
+                          </fieldset>
+                          <fieldset class="testStudent">
+                              <legend>考生信息</legend>
+                              <div class="studentImg"></div>
+                              <div class="student-item subject red">{{subject}}</div>
+                              <div class="student-item name">考生姓名:{{userInfo.username}}</div>
+                              <div class="student-item">考试题数:{{testNum}}</div>
+                              <div class="student-item">考试时间:{{minute}}分钟</div>
+                              <div class="student-item">满分100分,90分及格</div>
+                          </fieldset>
+                          <fieldset class="countDown">
+                              <legend>剩余时间</legend>
+                              <span class="djs">{{minute}}:{{second}}</span>
+                          </fieldset>
+                      </div>
+                      <div class="coll col2">
+                          <fieldset class="question">
+                               <legend>考试题目</legend>
+                               <div data-sp="0.26" class="question-detail">
+                                   <div class="detail-content" id="content">
+                                       <div class="question">
+                                           <p>{{current}}、{{question.question}}</p>
+                                        </div>
+                                        <div class="options clearfix">
+                                            <div data-questionid="1039100" data-q-index="0" data-ismul="false" class="option left">
+                                                <p>A、{{question.optiona}}</p>
+                                                <p>B、{{question.optionb}}</p>
+                                                <template v-if="question.optionc!=''">
+                                                        <p>c、{{question.optionc}}</p>
+                                                </template>
+                                                <template v-if="question.optiond!=''">
+                                                        <p>c、{{question.optiond}}</p>
+                                                </template>
+                                            </div>
+                                            <template v-if="question.img!=''">
+                                                <div data-questionid="1039100" data-q-index="0" data-ismul="false" class="img right">
+                                                    <img src="../image/807100.jpg" alt="题目图片" width="240px" height="140px">
+                                                </div>
+                                            </template>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="select right">
+                                        <label>请选择:</label>
+                                        <button class="select-lable" ref="answerSingle" data-key="A" @click="question.question_type!='3'?select(A):selects(A)">A</button>
+                                        <button class="select-lable" ref="answerSingle" data-key="B" @click="question.question_type!='3'?select(B):selects(B)">B</button>
+                                        <template v-if="question.optionc!=''">
+                                            <button class="select-lable" ref="answerSingle" data-key="C" @click="question.question_type!='3'?select(C):selects(C)">C</button>
+                                        </template>
+                                        <template v-if="question.optiond!=''">
+                                            <button class="select-lable" ref="answerSingle" data-key="D" @click="question.question_type!='3'?select(D):selects(D)">D</button>
+                                        </template>
+                                        <template v-if="question.question_type=='3'">
+                                            <button class="btn-answer-ok" ref="mulAnswerOk" @click="mulAnswerOk()">确定</button>
+                                        </template>
+                                    </div>
+                                </div>
+                          </fieldset>
+                          <div class="question-bar clearfix">
+                                <fieldset class="message">
+                                    <legend>试题提示信息</legend>
+                                    <span>{{message}}</span>
+                                </fieldset>
+                                <div class="btn-bar">
+                                    <button class="pre" ref="pre" @click="pre()">上一题</button>
+                                    <button class="next" ref="next" @click="next()">下一题</button>
+                                    <button class="submit" ref="submit" @click="submit()">交卷</button>
+                                </div>
+                          </div>
+                      </div>
+                      <div class="coll col3">
+                            <div class="answerCard">
+                                <ul class="answerCard-list clearfix">
+                                    <template v-for="t in testNum">
+                                        <li><a ref="itemClick" data-index="0" data-questionid="" @click="getq(t)" :class="t==current?'curr':''">{{t}}</a></li>
+                                    </template>
+                                </ul>
+                            </div>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios.js"></script>
+    <script src="../js/front/simulationTest.js"></script>
+</body>
+</html>

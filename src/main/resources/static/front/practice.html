@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/front/practice.css">
+</head>
+  <body>
+    <div id="practice">
+        <div class="container news-page">
+            <div class="common" data-sp="0.5">
+                <span>当前位置：</span>
+                <a href="">首页</a><i>&gt;</i>
+                <a href="">模拟考试</a><i>&gt;</i>
+                <a href="">{{license}}{{subject}}</a><i>&gt;</i>
+                <strong>{{type}}</strong>
+            </div>
+            <div class="frame">
+                <div class="left">
+                        <div class="question-detail" data-sp="0.27">
+                            <div class="detail-content" id="questionDetail">
+                                <div class="timu">
+                                    <p class="timu-text">{{current}}/{{total}}、{{question.question}}</p>
+                                    <button class="btn-shoucang " ref="shoucang">收藏</button>
+                                </div>
+                                <div class="answer-w clearfix">
+                                    <div data-questionid="989800" data-q-index="0" data-ismul="false" class="options-w left">
+                                        <p ref="answerclick" data-a-label="A" :class="" @click="question.question_type=='3'?selects('A',$event):select('A',$event)">A、{{question.optiona}}</p>
+                                        <p ref="answerclick" data-a-label="B" class="" @click="question.question_type=='3'?selects('B',$event):select('B',$event)">B、{{question.optionb}}</p>
+                                        <template v-if="question.optionc!=''">
+                                            <p ref="answerclick" data-a-label="C" class="" @click="question.question_type=='3'?selects('C',$event):select('C',$event)">C、{{question.optionc}}</p>
+                                        </template>
+                                        <template v-if="question.optiond!=''">
+                                            <p ref="answerclick" data-a-label="D" class="" @click="question.question_type=='3'?selects('D',$event):select('D',$event)">D、{{question.optiond}}</p>
+                                        </template>
+                                        <template v-if="question.license_type=='3'">
+                                            <button class="btn-answer-ok" ref="" @click="ok">确定</button>
+                                        </template>
+                                    </div>
+                                    <template v-if="question.img!=''">
+                                        <div class="media-w right">
+                                            <img src="question.img" alt="question.question" ref="bigImg">
+                                            <!-- <video src="http://file.open.jiakaobaodian.com/tiku/res/990200.mp4" autoplay="" loop="" alt="动画中有几种违法行为。">您的浏览器不支持 video 标签。</video> -->
+                                        </div>
+                                    </template>
+                                    
+                                </div>
+                            </div>
+                            <div class="option-type-msg">
+                                <span>{{message}}单选题，请选择你认为正确的答案！</span>
+                            </div>
+                        </div>
+                        <div class="datika"  data-sp="0.26">
+                            <div class="tool-bar"><div class="btn-bar clearfix">
+                                <button class="left gl" ref="pre" @click="pre()">上一题</button>
+                                <button class="left gl" ref="next" @click="next()">下一题</button>
+                                <template v-if="!dtk">
+                                    <button class="right pt" ref="shouqi" @click="datika()">显示答题卡</button>
+                                </template>
+                                <template v-if="dtk">
+                                    <button class="right pt" ref="shouqi" @click="datika()">隐藏答题卡</button>
+                                </template>
+                                <template v-if="!xj">
+                                    <button class="right pt" ref="shouqi" @click="xiangjie()">显示详解</button>
+                                </template>
+                                <template v-if="xj">
+                                    <button class="right pt" ref="shouqi" @click="xiangjie()">隐藏详解</button>
+                                </template>
+                            </div>
+                            <div class="msg-bar clearfix">
+                                <label class="daduinext left">
+                                    <input type="checkbox" checked="" class="checkbox-next">
+                                    <span>&nbsp;答对自动下一题</span>
+                                </label>
+                                <span class="left">
+                                    <span class="gray">答对：</span>
+                                    <span class="count-right" ref="xianshidatika">{{right}}&nbsp;题</span>
+                                </span>
+                                <span class="left">
+                                    <span class="gray">答错：</span>
+                                    <span class="count-wrong" ref="xianshidatika">{{error}}&nbsp;题</span>
+                                </span>
+                                <span class="left">
+                                    <span class="gray">正确率：</span>{{(right+error)==0?0:(right/(right+error)*100)}}%
+                                </span>
+                            </div>
+                        </div>
+                        <ul class="list-w clearfix" :class="dtk?'show':'hide'">
+                            <template v-for="t in total">
+                                    <li>
+                                        <a ref="itemClick" data-index="0" data-id="989800" class="">{{t}}</a>
+                                    </li> 
+                            </template>
+                        </ul>
+                    </div>
+                    <div :class="xj?'':'hide'">
+                        <div data-sp="0.28">
+                            <div class="xiangjie part">
+                                <h3 class="part-title">试题详解</h3>
+                                <div class="jiangjie">
+                                    <div class="content">{{question.explain}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios.js"></script>
+    <script src="../js/front/practice.js"></script>
+</body>
+</html>

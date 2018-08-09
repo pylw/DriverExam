@@ -1,10 +1,16 @@
+// 从前台添加或修改获取的 question.img 是一个64位的图片详情  需要后台封装成图片并更改其地址
 var question =  new Vue({
     el:"#question",
     data:{
+        // 总数
         total : undefined,
+        // 每页大小
         size : 10,
+        // 总页数
         page: undefined,
+        // 当前页
         current : 1,
+        // 用于添加和修改字段
         q:{
             id:undefined,
             license_type:'',
@@ -19,6 +25,7 @@ var question =  new Vue({
             answer:'',
             explain:''
         },
+        // 用于查询
         question:{
             id:undefined,
             license_type:'',
@@ -33,6 +40,7 @@ var question =  new Vue({
             answer:'',
             explain:''
         },
+        // 问题列表
         questionList:[{
             id:1,
             license_type:'A1',
@@ -61,6 +69,7 @@ var question =  new Vue({
 
     },
     methods:{
+        // 封装初始化
         qInit(q,id='',license_type='',subject='',question_type='',question='',img='',optiona='',optionb='',optionc='',optiond='',answer='',explain=''){
             q.id=id;
             q.license_type=license_type;
@@ -75,19 +84,24 @@ var question =  new Vue({
             q.answer = answer;
             q.explain = explain;
         },
+        // 更新问题列表
         updateList(){
             // 封装 获得List 传参(当前页this.current,每页this.size) 
             // 补  通过axios
         },
+        // 点击编辑按钮后的处理
         showEdit(qq){
             this.qInit(this.q,qq.id,qq.license_type,qq.subject,qq.question_type,qq.question,qq.img,qq.optiona,qq.optionb,qq.optionc,qq.optiond,qq.answer,qq.explain);
         },
+        // 点击添加按钮后的处理
         showAdd(){
             this.qInit(this.q);
         },
+        // 点击删除按钮后的处理
         showRemove(id){
             this.qInit(this.q,id);
         },
+        // 更新问题信息 需处理好  img
         update(question){
             if(question.question==''|| question.license_type==''||question.subject==''||question.question_type==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
                 return false;
@@ -120,6 +134,7 @@ var question =  new Vue({
             }
             $('#Modal').modal('hide');
         },
+        // 添加问题 同样需处理问题
         add(question){
             if(question.question==''|| question.license_type==''||question.subject==''||question.question_type==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
                 return false;
@@ -138,6 +153,7 @@ var question =  new Vue({
             // 添加成功 将user清空
             $('#Modal').modal('hide');
         },
+        // 查询问题
         query(question){
             // 获取 total  并根据total 更改current
             // 补  通过axios
@@ -148,6 +164,7 @@ var question =  new Vue({
             // 更新userList
             this.updateList();
         },
+        // 删除问题
         remove(id){
             // 从数据库删除数据
             // 补  通过axios
@@ -162,12 +179,14 @@ var question =  new Vue({
             // 更新List
             this.updateList();
         },
+        // 首页
         first(){
             this.current = 1;
             
             // 更新List
             this.updateList();
         },
+        // 前一页
         pre(){
             if(this.current==1){
                 return false;
@@ -177,6 +196,7 @@ var question =  new Vue({
             // 更新List
             this.updateList();
         },
+        // 点击页 获取
         pn(p){
             if(p>this.current){
                 this.current = p;
@@ -187,6 +207,7 @@ var question =  new Vue({
             // 更新List
             this.updateList();
         },
+        // 下一页
         next(){
             if(this.current==this.page){
                 return false;
@@ -195,6 +216,7 @@ var question =  new Vue({
             // 更新List
             this.updateList();
         },
+        // 尾页
         tail(){
             this.current = this.page;
             // 更新List

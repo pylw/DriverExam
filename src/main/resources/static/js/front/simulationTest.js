@@ -33,10 +33,17 @@ var test = new Vue({
         // 当前题数
         current:1,
         //用户答案保存
-        answers:[]
+        answers:[],
+        // 每题分数
+        ts:undefined,
+        // 当前分数  
+        score:0,
+        // 所花时间 交卷是传参
+        elapsed:0
+        
     },
     created() {
-        // 初始化  通过传参获取 科目 userName  题数 以及 时间和分钟数 和 axios 
+        // 初始化  通过传参获取 科目 userName  题数 每题分数 以及 时间和分钟数 和 axios 
         // 并检测是否答过试卷 并初始化question  根据question.question_type 初始化message
         
 
@@ -59,6 +66,7 @@ var test = new Vue({
             }else{
                 this.second='0'+String(Number(this.second)-1);
             }
+            this.elapsed++;
         },1000);
     },
     methods:{
@@ -85,11 +93,11 @@ var test = new Vue({
             //this.question = this.questList[this.current];
             // 更改message
         },
-        // 交卷
+        // 交卷 传参
         submit(){
 
         },
-        // 单选
+        // 单选 判断后进行分数计算
         select(option){
             this.answers.splice(current,1,option);
             // 通过axios 获取该题答案  
@@ -110,7 +118,7 @@ var test = new Vue({
             this.answers.splice(current,1,this.answers[this.current]+option);
             // 设置点击后的class
         },
-        // 多选的确认按钮 
+        // 多选的确认按钮  判断后进行分数计算
         mulAnswerOk(){
             
         }

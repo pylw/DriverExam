@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/front/result.css">
+</head>
+  <body>
+      <div id="result">
+        <div class="container news-page">
+            <div class="award-container result-container">
+                <div class="result-box">
+                    <img class="avatar" src="http://web.resource.mucang.cn/jiakaobaodian.web/jkbd-app/resources/images/diandian8.png">
+                    <h3 class="name">{{userInfo.username}}</h3>
+                    <p class="">
+                        分数
+                        <span class="score">{{score}}</span>
+                        用时
+                        <span class="elapsed">{{elapsed/60<10?'0'+parseInt(elapsed/60):parseInt(elapsed/60)}}:{{elapsed%60<10?'0'+elapsed%60:elapsed%60}}</span>
+                    </p>
+                </div>
+                <div class="result-info">
+                    <ul class="info-count " data-item="nums-ul">
+                        <li>
+                            <span class="label">
+                                答对：
+                            </span>
+                            <a target="_blank" class="nums number-y" data-t="1">{{right}}题</a>
+                        </li>
+                        <li>
+                            <span class="label">答错：</span>
+                            <a target="_blank" class="nums number-n" data-t="2">{{error}}题</a>
+                        </li>
+                        <li>
+                            <span class="label">漏答：</span>
+                            <a target="_blank" class="nums number-m" data-t="3">{{unanswere}}题</a>
+                        </li>
+                    </ul>
+                    <div class="info-btn cl">
+                        <a class="result-reload" href="/mnks/exam/bus-kemu4-changsha.html">再考一次</a>
+                        <!-- <a class="result-shear" data-item="share-btn"  ref="biance">炫耀</a> -->
+                    </div>
+                    <!-- <div class="award-share-item" data-item="share-item">
+                        <div class="arrow arrow-down"></div>
+                        <div data-sp="0.26" class="com-share-pannel">
+                            <span class="label">分享：</span>
+                            <div class="inner">
+                                <div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1533782724911">
+                                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios.js"></script>
+    <script src="../js/front/result.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.pylw.driverexam.user.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -51,19 +52,18 @@ public class UserController {
 		return true;
 	}
 	
-	// 发送邮箱验证码
+
 	@PostMapping("register/sendIdCode")
-	public String sendIDCode(@RequestBody Map<String ,String> map) {
-		SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom("1152544623@qq.com");// 发送者.
-        message.setTo(map.get("name"));// 接收者.
-        message.setSubject("注册验证码——来自在线驾考答题网站");// 邮件主题.
-        String text = String.valueOf((int)(Math.random()*1000000));
-        message.setText("验证码为："+text);// 邮件内容.
-
-        mailSender.send(message);// 发送邮件
-        return text;
+	public void sendIDCode(@RequestBody Map<String ,String> map) {
+		String account = map.get("name");
+        userService.sendIDCode(account);
+	}
+	@PostMapping("register/confirmCode")
+	public boolean confirmCode(@RequestBody Map<String ,String> map) {
+		String account = map.get("name");
+		String code = map.get("code");
+		
+		return userService.confirmCode(account, code);
 	}
 	
 	@PostMapping("admin/user")

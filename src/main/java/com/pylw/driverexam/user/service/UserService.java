@@ -1,9 +1,14 @@
 package com.pylw.driverexam.user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.pylw.driverexam.user.mapper.UserMapper;
 import com.pylw.driverexam.user.model.User;
@@ -13,6 +18,46 @@ import com.pylw.driverexam.user.model.UserInfo;
 public class UserService {
 	@Autowired
 	UserMapper userMapper;
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	public class Code{
+		String code;
+		long startTime;
+		public Code() {
+			//生成随机的6位数验证码
+			code = String.valueOf((int)(Math.random()*1000000));
+			startTime = System.currentTimeMillis();
+		}
+		public boolean isEffective(String code, long time) {
+			if(!this.code.equals(code))
+				return false;
+			if(time-this.startTime<=5*60*1000)
+				return true;
+			return false;
+		}
+	}
+
+
+	//一个用户对应一个验证码
+	Map<String ,Code> map = new HashMap<>();
+	
+	//发送验证码
+	public void sendIDCode(String account) {
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("1152544623@qq.com");// 发送者.
+        message.setTo(account);// 接收者.
+        message.setSubject("注册验证码——来自在线驾考答题网站");// 邮件主题.
+        map.put(account, new Code());
+        message.setText("验证码为："+map.get(account).code+"\n有效期5分钟");// 邮件内容.
+        mailSender.send(message);// 发送邮件
+	}
+	
+	//判断验证码
+	public boolean confirmCode(String account,String code) {
+		
+		return map.get(account).isEffective(code, System.currentTimeMillis());
+	}
 	
 	public List<UserInfo> findAll(){
 		return userMapper.findAllUsers();

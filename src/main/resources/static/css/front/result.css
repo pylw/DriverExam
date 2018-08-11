@@ -1,0 +1,282 @@
+body {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.01;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+*, .block-item, :after, :before {
+    box-sizing: border-box;
+}
+div {
+    display: block;
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+#result {
+    width: 1200px;
+    min-height: 658px;
+    margin: 0 auto;
+}
+#result {
+    width: 100%!important;
+}
+#result .container {
+    display: block;
+    min-height: 100%;
+}
+.container {
+    min-width: 1200px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.container {
+    width: 100%; 
+    padding: 0px;
+    margin: 0px;
+    max-width: 1900px;
+}
+.container .award-container {
+    position: relative;
+    height: 700px;
+    background: url(http://www.jiakaobaodian.com/core-assets/jiakao/application/mnks/award/files/11cc5cade497a789f1219fdc6ff3affc.png) center bottom no-repeat #7ed5f5;
+}
+.container .award-container .result-box{
+    width:485px;
+    height:445px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative
+}
+.container .award-container .result-box.shashou {
+    background: url(http://www.jiakaobaodian.com/core-assets/jiakao/application/mnks/award/files/e9fc61aa4813d48d163272a326d6f75e.png) left bottom no-repeat;
+}
+.container .award-container .result-box.cheshen{
+    background:url(http://www.jiakaobaodian.com/core-assets/jiakao/application/mnks/award/files/cac4fe36f8dd3790238da889e681f59d.png) left bottom no-repeat;
+}
+
+.container .award-container .result-box {
+    width: 485px;
+    height: 445px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+.container .award-container .result-box .avatar {
+    position: absolute;
+    left: 115px;
+    top: 40px;
+    width: 64px;
+    height: 64px;
+    border: 3px solid #d2edef;
+    border-radius: 100%;
+}
+.container img {
+    background: url(http://www.jiakaobaodian.com/core-assets/jiakao/application/mnks/award/files/3605c834d811edb90322db2cc35ce432.png) center no-repeat;
+    background-size: 40%;
+}
+.show, img {
+    display: block;
+}
+img {
+    border: 0;
+    max-width: 100%;
+}
+.container .award-container .result-box .name {
+    font-size: 20px;
+    color: #4c4c4c;
+    position: absolute;
+    left: 200px;
+    top: 50px;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+h3 {
+    display: block;
+    font-size: 1.17em;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+.container .award-container .result-box p {
+    position: absolute;
+    left: 200px;
+    top: 80px;
+    font-size: 16px;
+}
+.container .award-container .result-box .score {
+    color: #ff6e94;
+    padding-left: 10px;
+    padding-right: 30px;
+}
+.container .award-container .result-box .elapsed {
+    color: #ff9000;
+    padding-left: 10px;
+}
+.container .award-container .result-info {
+    width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    position: relative;
+}
+.container .award-container .result-info .info-count {
+    overflow: hidden;
+}
+li, ol, ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+.container .award-container .result-info .info-count li {
+    float: left;
+    display: inline;
+    list-style-type: none;
+    width: 114px;
+    padding-left: 26px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+}
+.container .award-container .result-info .info-count li .label {
+    color: #4c4c4c;
+}
+.container .award-container .result-info .info-count li .number-y {
+    color: #ff9000;
+}
+.container .award-container .result-info .info-count li .number-n {
+    color: #ff6e94;
+}
+.container .award-container .result-info .info-count li .number-m {
+    color: #1dacf9;
+}
+.container .award-container .result-info .info-count li .nums {
+    cursor: default;
+}
+a {
+    font-size: inherit;
+    color: inherit;
+}
+a {
+    text-decoration: none;
+}
+a, button {
+    cursor: pointer;
+}
+.container .award-container .result-info .info-btn {
+    margin-top: 20px;
+}
+.cl:after, .cl:before {
+    display: table;
+    content: " ";
+    clear: both;
+}
+.container .award-container .result-info .info-btn .result-reload {
+    float: left;
+}
+.container .award-container .result-info .info-btn .result-reload, .container .award-container .result-info .info-btn .result-shear {
+    transition: all .3s;
+    display: block;
+    height: 44px;
+    width: 128px;
+    text-indent: -9999px;
+    background-image: url(http://www.jiakaobaodian.com/core-assets/jiakao/application/mnks/award/files/ea81f6cf087241f7ae6ba347773abfdc.png);
+}
+.container .award-container .result-info .info-btn .result-shear {
+    float: right;
+    background: url(http://www.jiakaobaodian.com/core-assets/jiakao/application/mnks/award/files/27026cf7ddad0aabd4eec9d96443507b.png);
+}
+.container .award-container .result-info .award-share-item.show {
+    display: block;
+}
+.container .award-container .result-info .award-share-item {
+    position: absolute;
+    left: 269px;
+    top: 126px;
+    width: 150px;
+    background-color: #7ED5F5;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    padding: 8px 0 8px 22px;
+    display: none;
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
+}
+.container .award-container .result-info .award-share-item .arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid #fff;
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+    top: -14px;
+}
+.container .award-container .result-info .award-share-item .com-share-pannel {
+    margin-left: 0;
+}
+.com-share-pannel {
+    margin-left: 30px;
+}
+.com-share-pannel, .com-share-pannel .inner {
+    display: inline-block;
+    vertical-align: middle;
+}
+.com-share-pannel .inner {
+    margin-top: -3px;
+}
+.com-share-pannel, .com-share-pannel .inner {
+    display: inline-block;
+    vertical-align: middle;
+}
+.bdshare-button-style0-16 {
+    zoom: 1;
+}
+.bdshare-button-style0-16 .bds_tsina {
+    background-position: 0 -104px;
+}
+.bdshare-button-style0-16 a, .bdshare-button-style0-16 .bds_more {
+    float: left;
+    font-size: 12px;
+    padding-left: 17px;
+    line-height: 16px;
+    height: 16px;
+    background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=91362611.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin: 6px 6px 6px 0;
+}
+.bdshare-button-style0-16 .bds_qzone {
+    background-position: 0 -52px;
+}
+.bdshare-button-style0-16 .bds_weixin {
+    background-position: 0 -1612px;
+}

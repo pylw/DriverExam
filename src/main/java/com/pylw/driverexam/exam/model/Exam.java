@@ -11,11 +11,11 @@ import java.sql.Timestamp;
 public class Exam {
 
 	/** 模拟考试id */
-	private Integer examID;
+	private Integer examId;
 	/** 该模拟考试的用户id */
-	private Integer userID;
+	private Integer userId;
 	/** 科目id */
-	private Integer subjectID;
+	private Integer subjectId;
 	/** 开始日期和时间 */
 	private Timestamp startTime;
 	/** 结束日期和时间 */
@@ -31,21 +31,21 @@ public class Exam {
 	}
 
 	/**
-	 * @param examID
-	 * @param userID
-	 * @param subjectID
+	 * @param examId
+	 * @param userId
+	 * @param subjectId
 	 * @param startTime
 	 * @param endTime
 	 * @param totalDone
 	 * @param totalError
 	 * @param score
 	 */
-	public Exam(Integer examID, Integer userID, Integer subjectID, Timestamp startTime, Timestamp endTime,
+	public Exam(Integer examId, Integer userId, Integer subjectId, Timestamp startTime, Timestamp endTime,
 			Integer totalDone, Integer totalError, Integer score) {
 		super();
-		this.examID = examID;
-		this.userID = userID;
-		this.subjectID = subjectID;
+		this.examId = examId;
+		this.userId = userId;
+		this.subjectId = subjectId;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.totalDone = totalDone;
@@ -54,45 +54,45 @@ public class Exam {
 	}
 
 	/**
-	 * @return the examID
+	 * @return the examId
 	 */
-	public Integer getExamID() {
-		return examID;
+	public Integer getExamId() {
+		return examId;
 	}
 
 	/**
-	 * @param examID the examID to set
+	 * @param examId the examId to set
 	 */
-	public void setExamID(Integer examID) {
-		this.examID = examID;
+	public void setExamId(Integer examId) {
+		this.examId = examId;
 	}
 
 	/**
-	 * @return the userID
+	 * @return the userId
 	 */
-	public Integer getUserID() {
-		return userID;
+	public Integer getUserId() {
+		return userId;
 	}
 
 	/**
-	 * @param userID the userID to set
+	 * @param userId the userId to set
 	 */
-	public void setUserID(Integer userID) {
-		this.userID = userID;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	/**
-	 * @return the subjectID
+	 * @return the subjectId
 	 */
-	public Integer getSubjectID() {
-		return subjectID;
+	public Integer getSubjectId() {
+		return subjectId;
 	}
 
 	/**
-	 * @param subjectID the subjectID to set
+	 * @param subjectId the subjectId to set
 	 */
-	public void setSubjectID(Integer subjectID) {
-		this.subjectID = subjectID;
+	public void setSubjectId(Integer subjectId) {
+		this.subjectId = subjectId;
 	}
 
 	/**

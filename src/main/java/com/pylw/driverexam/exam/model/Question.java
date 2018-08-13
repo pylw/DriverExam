@@ -9,7 +9,7 @@ package com.pylw.driverexam.exam.model;
 public class Question {
 
 	/** 题目id */
-	private Integer questionID;
+	private Integer questionId;
 	/** 驾照类型 */
 	private String licenseType;
 	/** 科目 */
@@ -37,7 +37,7 @@ public class Question {
 	}
 
 	/**
-	 * @param questionID
+	 * @param questionId
 	 * @param licenseType
 	 * @param subject
 	 * @param questionType
@@ -50,9 +50,9 @@ public class Question {
 	 * @param answer
 	 * @param explain
 	 */
-	public Question(Integer questionID, String licenseType, String subject, String questionType, String question,
+	public Question(Integer questionId, String licenseType, String subject, String questionType, String question,
 			String img, String optionA, String optionB, String optionC, String optionD, String answer, String explain) {
-		this.questionID = questionID;
+		this.questionId = questionId;
 		this.licenseType = licenseType;
 		this.subject = subject;
 		this.questionType = questionType;
@@ -67,17 +67,17 @@ public class Question {
 	}
 
 	/**
-	 * @return the questionID
+	 * @return the questionId
 	 */
-	public Integer getQuestionID() {
-		return questionID;
+	public Integer getQuestionId() {
+		return questionId;
 	}
 
 	/**
-	 * @param questionID the questionID to set
+	 * @param questionId the questionId to set
 	 */
-	public void setQuestionID(Integer questionID) {
-		this.questionID = questionID;
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
 	}
 
 	/**

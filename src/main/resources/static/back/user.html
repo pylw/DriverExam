@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="username">用户名</label>
-                <input type="text" class="form-control" id="username" placeholder="username" v-model="user.userInfo.username" required>
+                <input type="text" class="form-control" id="username" placeholder="username" v-model="user.username" required>
             </div>
           </div>
           <div class="form-row">
@@ -52,7 +52,7 @@
               </div>
             <div class="col-md-3 mb-3">
               <label for="city">城市</label>
-              <select class="custom-select mr-sm-2" id="city" v-model="user.userInfo.city" required>
+              <select class="custom-select mr-sm-2" id="city" v-model="user.city" required>
                   <option value="" selected>请选择城市</option>
                   <template v-for="city in cityList">
                       <option v-bind:key="city" v-bind:value="city">{{city}}</option>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-3 mb-3">
               <label for="sex">性别</label>
-              <select class="custom-select mr-sm-2" id="sex" v-model="user.userInfo.sex" required>
+              <select class="custom-select mr-sm-2" id="sex" v-model="user.sex" required>
                   <option value="" selected>请选择性别</option>
                   <option value="男">男</option>
                   <option value="女">女</option>
@@ -69,7 +69,7 @@
             </div>
             <div class="col-md-3 mb-3">
                 <label for="license_type">驾照类型</label>
-                <select class="custom-select mr-sm-2" id="license_type" v-model="user.userInfo.license_type" required>
+                <select class="custom-select mr-sm-2" id="license_type" v-model="user.license_type" required>
                     <option value="" selected>请选择驾照类型</option>
                     <option value="A1">小车</option>
                     <option value="C1">货车</option>
@@ -104,13 +104,13 @@
                 <tbody>
                     <template v-for="(uu,key) in userList">
                         <tr v-bind:key="uu.id">
-                            <th scope="row">{{key+1}}</th>
+                            <th scope="row">{{key+1}}</th>                                                                                           
                             <td>{{uu.phone}}</td>
                             <td>{{uu.email}}</td>
-                            <td>{{uu.userInfo.username}}</td>
-                            <td>{{uu.userInfo.sex}}</td>
-                            <td>{{uu.userInfo.city}}</td>
-                            <td>{{uu.userInfo.license_type}}</td>
+                            <td>{{uu.username}}</td>
+                            <td>{{uu.sex}}</td>
+                            <td>{{uu.city}}</td>
+                            <td>{{uu.license_type}}</td>
                             <td>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -186,11 +186,11 @@
                               <div class="form-row">
                                 <div class="col-md-6 mb-5">
                                     <label for="username">用户名</label>
-                                      <input type="text" class="form-control" id="uusername" placeholder="username" v-model="u.userInfo.username" required>
+                                      <input type="text" class="form-control" id="uusername" placeholder="username" v-model="u.username" required>
                                   </div>
                                   <div class="col-md-6 mb-5">
                                     <label for="sex">性别</label>
-                                    <select class="custom-select mr-sm-2" id="usex" v-model="u.userInfo.sex" required>
+                                    <select class="custom-select mr-sm-2" id="usex" v-model="u.sex" required>
                                         <option value="男">男</option>
                                         <option value="女">女</option>
                                     </select>
@@ -200,7 +200,7 @@
                               <div class="form-row">
                                 <div class="col-md-6 mb-5">
                                     <label for="city">城市</label>
-                                    <select class="custom-select mr-sm-2" id="ucity" v-model="u.userInfo.city" required>
+                                    <select class="custom-select mr-sm-2" id="ucity" v-model="u.city" required>
                                         <template v-for="city in cityList">
                                             <option v-bind:key="city" v-bind:value="city">{{city}}</option>
                                         </template>
@@ -208,10 +208,10 @@
                                   </div>
                                   <div class="col-md-6 mb-5">
                                       <label for="license_type">驾照类型</label>
-                                      <select class="custom-select mr-sm-2" id="ulicense_type" v-model="u.userInfo.license_type" required>
-                                          <option value="A1">小车</option>
-                                          <option value="C1">货车</option>
-                                          <option value="A2">客车</option>
+                                      <select class="custom-select mr-sm-2" id="ulicense_type" v-model="u.license_type" required>
+                                          <option value="A1">大型客车</option>
+                                          <option value="C1">小型汽车</option>
+                                          <option value="A2">牵引车</option>
                                           <option value="D">摩托车</option>
                                       </select>
                                   </div>

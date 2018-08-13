@@ -1,7 +1,7 @@
 package com.pylw.driverexam.user.model;
 
 public class UserInfo {
-	int user_id;
+	int userId;
 	String username;
 	String phone;
 	String email;
@@ -14,12 +14,23 @@ public class UserInfo {
 	public UserInfo() {
 	}
 	
-	public int getUser_id() {
-		return user_id;
+
+
+
+	public int getUserId() {
+		return userId;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+
+
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
+
+
+
+
 	public String getUsername() {
 		return username;
 	}

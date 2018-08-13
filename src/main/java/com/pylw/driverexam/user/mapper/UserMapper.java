@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.pylw.driverexam.user.model.User;
 import com.pylw.driverexam.user.model.UserInfo;
-
+import org.apache.ibatis.annotations.*;
 @Mapper
 public interface UserMapper {
 	@Select("select * from v_user")
@@ -27,7 +27,7 @@ public interface UserMapper {
 	List<User> findbyEmail(@Param("email") String email);
 	
 	@Insert("insert into users values(0,#{phone},#{email},#{password});"
-		  + "insert into user_info(user_id,join_date,last_login) values(last_insert_id(),now(),now())")
+		  + "insert into user_info(user_id,join_date,last_login) values(last_insert_id(),now(),now())")	
 	void creat(User user);
 	
 }

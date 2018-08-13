@@ -15,26 +15,23 @@ var user = new Vue({
             id:undefined,
             phone:'',
             email:'',
-            userInfo:{
-                username:'',
-                sex:'',
-                city:'',
-                license_type:'',
-                join_date:''
-            }
+            username:'',
+            sex:'',
+            city:'',
+            license_type:'',
+            join_date:''
         },
         // userInfo 信息  需要修改 根据后台接收参数修改  更改后 html页面{{}}内容也要修改  此字段用于 添加和查询
         user:{
             id:undefined,
             phone:'',
             email:'',
-            userInfo:{
-                username:'',
-                sex:'',
-                city:'',
-                license_type:'',
-                join_date:''
-            }
+            username:'',
+            sex:'',
+            city:'',
+            license_type:'',
+            join_date:''
+        
         },
         // 所有城市 有待增加 
         cityList:['长沙'], // 得补全全部city
@@ -43,15 +40,27 @@ var user = new Vue({
     },
     // 初始化
     created() {
-        // 获取数据库用户总数
-        // 补  通过axios
-        this.total = 100;
 
-        // 获得总页数
-        this.page = Math.ceil(this.total/this.size);
-        
-        // 获取10条用户放到List中
         // 补  通过axios
+        axios.post(
+                '/admin/user', null, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            .then((response) => {
+            	//获取所有的用户
+                this.userList = response.data;
+                // 获取数据库用户总数
+                this.total = this.userList.length;
+                // 获得总页数
+                this.page = Math.ceil(this.total/this.size);
+                console.log(this.userList);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     },
     // beforeCreate() {
@@ -66,11 +75,11 @@ var user = new Vue({
             user.id=id;
             user.phone=phone;
             user.email=email;
-            user.userInfo.username=username;
-            user.userInfo.sex=sex;
-            user.userInfo.city=city;
-            user.userInfo.license_type=license_type;
-            user.userInfo.join_date=join_date
+            user.username=username;
+            user.sex=sex;
+            user.city=city;
+            user.license_type=license_type;
+            user.join_date=join_date
         },
         // 更新userList
         updateList(){
@@ -79,28 +88,54 @@ var user = new Vue({
         },
         // 点击编辑按钮后的信息处理
         showEdit(uu){
-            this.userInit(this.u,uu.id,uu.phone,uu.email,uu.userInfo.username,uu.userInfo.sex,uu.userInfo.city,uu.userInfo.license_type,uu.userInfo.join_date);
+            this.userInit(this.u,uu.id,uu.phone,uu.email,uu.username,uu.sex,uu.city,uu.license_type,uu.join_date);
         },
         // 点击删除按钮的处理
         showRemove(id){
             this.userInit(this.u,id);
         },
+        
         // 更新处理
         update(user){
-            if(user.phone==''|| user.userInfo.username==''||user.email==''){
+            if(user.phone==''|| user.username==''||user.email==''){
                 return false;
             }
             // 检测所更新数据邮件或手机号 是否已存在
-            // 补  通过axios
-
-            if(false){  // 如果 phone 存在  
+             //补  通过axios
+            var havePhone = false;
+            
+             axios.post(
+                 '/register/name', {name :user.phone}, {
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 }
+             )
+             .then((response) => {
+            	havePhone = response.data;
+            	console.log(havePhone);
+            	if(havePhone){  // 如果 phone 存在  
+                    // 此处不能用 $("#")
+                    var phone = document.getElementById("uphone");
+                    console.log(phone);
+                    phone.setCustomValidity('该电话已注册');
+                    return false;
+                }
+             })
+             .catch((error) => {
+                 console.log(error);
+             });
+             
+             console.log(havePhone);
+            
+            if(havePhone){  // 如果 phone 存在  
                 // 此处不能用 $("#")
                 var phone = document.getElementById("uphone");
                 phone.setCustomValidity('该电话已注册');
                 return false;
             }
 
-            if(false){  // 如果 phone 存在  
+            if(havePhone){  // 如果 phone 存在  
                 // 此处不能用 $("#")
                 var phone = document.getElementById("uemail");
                 phone.setCustomValidity('该邮箱已注册');
@@ -110,16 +145,16 @@ var user = new Vue({
             // 更新数据库数据  密码无需更新
             // 补  通过axios
 
-            for(var i=0;i<this.userList.length;i++){
-                if(this.userList[i].id==user.id){
-                    this.userList.splice(i, 1, user);
-                } 
-            }
+//            for(var i=0;i<this.userList.length;i++){
+//                if(this.userList[i].id==user.id){
+//                    this.userList.splice(i, 1, user);
+//                } 
+//            }
             $('#updateModal').modal('hide');
         },
         // 添加信息
         add(user){
-            if(user.phone==''|| user.userInfo.username==''||user.email==''||user.userInfo.sex==''||user.userInfo.city==''||user.userInfo.license_type==''){
+            if(user.phone==''|| user.username==''||user.email==''||user.sex==''||user.city==''||user.license_type==''){
                 return false;
             }
             // 检测所更新数据邮件或手机号 是否已存在
@@ -139,7 +174,7 @@ var user = new Vue({
                 return false;
             }
 
-            user.userInfo.join_date = new Date();  // 默认参加时间为当前时间
+            user.join_date = new Date();  // 默认参加时间为当前时间
             // 增加数据  后台设置默认密码为
             // 补  通过axios
 

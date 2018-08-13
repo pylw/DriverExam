@@ -1,28 +1,28 @@
 package com.pylw.driverexam.user.model;
 
 public class User {
-	int user_id;
+	int userId;
 	String phone;
 	String email;
 	String password;
 
 	public User() {
 	}
-	public User(int user_id, String phone, String email, String password) {
-		this.user_id = user_id;
+	public User(int userId, String phone, String email, String password) {
+		this.userId = userId;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
 	}
+	
 
-	public int getUser_id() {
-		return user_id;
+	
+	public int getUserId() {
+		return userId;
 	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-
 	public String getPhone() {
 		return phone;
 	}

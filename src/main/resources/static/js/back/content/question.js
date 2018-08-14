@@ -41,31 +41,33 @@ var question =  new Vue({
             explain:''
         },
         // 问题列表
-        questionList:[{
-            id:1,
-            license_type:'A1',
-            subject:1,
-            question_type:'2',
-            question:'驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？',
-            img:'',
-            optiona:'违章行为',
-            optionb:'违法行为',
-            optionc:'过失行为',
-            optiond:'过失行为',
-            answer:'2',
-            explain:'<p>“违反道路交通安全法”，违反法律法规即为违法行为。官方已无违章/违规的说法。</p>'
-        }]
+        questionList:[]
     },
     created() {
         // 获取数据库用户总数
         // 补  通过axios
-        this.total = 100;
+        axios.get(
+            'question/total'
+        ).then((r)=>{
+            this.total=r.data;
+            // 获得总页数
+            this.page = Math.ceil(this.total/this.size); 
+        })
 
-        // 获得总页数
-        this.page = Math.ceil(this.total/this.size);
-        
-        // 获取10条用户放到List中
+        // 获取 size 条用户放到List中
         // 补  通过axios
+        axios.get(
+            '/question',
+            {
+                'current':this.current,
+                'size':this.size
+            }
+        ).then((r)=>{
+            this.questionList = r.data;
+
+        }).catch((error) => {
+            console.log(error);
+        })
 
     },
     methods:{
@@ -88,6 +90,18 @@ var question =  new Vue({
         updateList(){
             // 封装 获得List 传参(当前页this.current,每页this.size) 
             // 补  通过axios
+            axios.get(
+                '/question',
+                {
+                    'current':this.current,
+                    'size':this.size
+                }
+            ).then((r)=>{
+                this.questionList = r.data;
+    
+            }).catch((error) => {
+                console.log(error);
+            }) 
         },
         // 点击编辑按钮后的处理
         showEdit(qq){
@@ -106,32 +120,39 @@ var question =  new Vue({
             if(question.question==''|| question.license_type==''||question.subject==''||question.question_type==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
                 return false;
             }
-            // 检测所更新数据邮件或手机号 是否已存在
+            // 检测所更新数据邮件或手机号 是否已存在  注意 要排除自身无修改的情况
             // 补  通过axios
+            var phone = document.getElementById("uphone");
+            console.log(phone);
+            phone.setCustomValidity('该电话已注册');
 
             // 更新数据库数据  密码无需更新
             // 补  通过axios
 
 
 
-            for(var i=0;i<this.questionList.length;i++){
-                if(this.questionList[i].id==question.id){
-                    var q = {id:undefined,
-                        license_type:'',
-                        subject:'',
-                        question_type:'',
-                        question:'',
-                        img:'',
-                        optiona:'',
-                        optionb:'',
-                        optionc:'',
-                        optiond:'',
-                        answer:'',
-                        explain:''};
-                    this.qInit(q,question.id,question.license_type,question.subject,question.question_type,question.question,question.img,question.optiona,question.optionb,question.optionc,question.optiond,question.answer,question.explain)
-                    this.questionList.splice(i, 1, q);
-                } 
-            }
+            // 更新完成后重新获取数据
+            this.updateList();
+
+            // 不获取直接更改当前List的值
+            // for(var i=0;i<this.questionList.length;i++){
+            //     if(this.questionList[i].id==question.id){
+            //         var q = {id:undefined,
+            //             license_type:'',
+            //             subject:'',
+            //             question_type:'',
+            //             question:'',
+            //             img:'',
+            //             optiona:'',
+            //             optionb:'',
+            //             optionc:'',
+            //             optiond:'',
+            //             answer:'',
+            //             explain:''};
+            //         this.qInit(q,question.id,question.license_type,question.subject,question.question_type,question.question,question.img,question.optiona,question.optionb,question.optionc,question.optiond,question.answer,question.explain)
+            //         this.questionList.splice(i, 1, q);
+            //     } 
+            // }
             $('#Modal').modal('hide');
         },
         // 添加问题 同样需处理问题
@@ -141,10 +162,19 @@ var question =  new Vue({
             }
             // 增加数据 
             // 补  通过axios
+            axios.post(
+                'question/add',
+                {
+                    'question':this.q
+                }
+            ).then((r)=>{
+
+            })
 
             // 总数增加
             this.total +=1;
             this.page = Math.ceil(this.total/this.size);
+
 
             // 更新userList  相等 不需要更新   不相等需要更新
             if(this.question.length != this.size){
@@ -155,12 +185,22 @@ var question =  new Vue({
         },
         // 查询问题
         query(question){
-            // 获取 total  并根据total 更改current
+            // 获取 total  并根据total 更改current  mybatis 使用if 操作 判断question 中的字段不为空 进行选择查询
             // 补  通过axios
-            
-            if(this.current>Math.ceil(this.total/this.size)){
-                this.current = Math.ceil(this.total/this.size);
-            }
+            axios.get(
+                'question/total',
+                {
+                    'question':this.question
+                }
+            ).then((r)=>{
+                this.current = 1;
+                this.total = r.data;
+                this.page =  Math.ceil(this.total/this.size);
+            })
+
+            // if(this.current>Math.ceil(this.total/this.size)){
+            //     this.current = Math.ceil(this.total/this.size);
+            // }
             // 更新userList
             this.updateList();
         },
@@ -168,7 +208,14 @@ var question =  new Vue({
         remove(id){
             // 从数据库删除数据
             // 补  通过axios
-
+            axios.get(
+                '/question/delete',
+                {
+                    'id':id
+                }
+            ).then((r)=>{
+                
+            })
 
             // 更新total
             this.total-=1;

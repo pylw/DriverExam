@@ -1,0 +1,67 @@
+.el-icon-arrow-down:before {
+    content: "\e603";
+    color: #ffffff;
+}
+
+.el-submenu__title i {
+    color: #f7f5f5;
+}
+
+.texts {
+    font-size: 14px;
+}
+
+.items {
+    padding: 18px 0;
+}
+
+.box-card {
+    width: 580px;
+    height: 373px;
+}
+
+#cards {
+    margin-left: 85px;
+    margin-top: 80px;
+}
+
+#cardss {
+    margin-left: 40px;
+    margin-top: 80px;
+}
+
+#kmi {
+    font-size: 30px;
+    height: 55px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 180px;
+}
+
+.dis {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.aclass {
+    color: black;
+    position: relative;
+    top: 12px;
+}
+
+.aclass:link {
+    text-decoration-line: none;
+}
+
+.pa {
+    height: 70px;
+    width: 250px;
+    margin-left: 25px;
+    margin-bottom: 15px;
+    background-color: #e9ebef;
+}
+
+.paa {
+    margin-left: 80px;
+    margin-top: 20px;
+}

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>在线驾考答题系统</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+    <!-- MD5 -->
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/element-ui@2.4.6/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/front/indexs.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- app-head -->
+        <div class="jumbotron jumbotron-fluid py-2 mb-0" style="background-color: white;color: #37b5f8">
+            <div class="container">
+                <div class="row" style="margin-left:-50px;">
+                    <h2 style="font-size: 45px;font-family: SimHei" id="cl">在线驾考答题系统</h2>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-link offset-6" data-toggle="modal" data-target="#exampleModal" id="log" style="text-decoration-line: none;">
+                    登录
+                </button>
+                    <button type="button" class="btn btn-link" id="register" style="text-decoration-line: none;">
+                    注册
+                </button>
+                    <div class="dropdown offset-6" id="geren" style="display: none;">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 0;text-decoration-line: none;">
+                    </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="personal">个人中心</a>
+                            <a class="dropdown-item" href="#">账号设置</a>
+                            <a class="dropdown-item" href="#" id="quit">退出</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- app-nav -->
+
+        <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#37b5f8" text-color="#fff" active-text-color="#ffd04b" style="width: 100%;margin-right: 0px;margin-left: 0px;">
+            <el-menu-item index="0" style="margin-left: 52px;">首页</el-menu-item>
+            <el-submenu index="1">
+                <template slot="title">科目一</template>
+                <el-menu-item index="1-1">模拟考试</el-menu-item>
+                <el-menu-item index="1-2">随机练习</el-menu-item>
+                <el-menu-item index="1-3">顺序练习</el-menu-item>
+                <el-submenu index="1-4">
+                    <template slot="title">专项练习</template>
+                    <el-menu-item index="1-4-1">单选题</el-menu-item>
+                    <el-menu-item index="1-4-2">多选题</el-menu-item>
+                    <el-menu-item index="1-4-3">判断题</el-menu-item>
+                </el-submenu>
+            </el-submenu>
+            <el-menu-item index="2">科目二</el-menu-item>
+            <el-menu-item index="3">科目三</el-menu-item>
+            <el-submenu index="4">
+                <template slot="title">科目四</template>
+                <el-menu-item index="4-1">模拟考试</el-menu-item>
+                <el-menu-item index="4-2">随机练习</el-menu-item>
+                <el-menu-item index="4-3">顺序练习</el-menu-item>
+                <el-submenu index="4-4">
+                    <template slot="title">专项练习</template>
+                    <el-menu-item index="4-4-1">单选题</el-menu-item>
+                    <el-menu-item index="4-4-2">多选题</el-menu-item>
+                    <el-menu-item index="4-4-3">判断题</el-menu-item>
+                </el-submenu>
+            </el-submenu>
+        </el-menu>
+
+        <!-- app-body -->
+        <div class="row">
+            <div id="cards">
+                <el-card class="box-card">
+                    <div class="row" id="kmi">
+                        <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/cd9c3b69a1d8d0bc72b839ebdaeb5fd4.png" alt="" style="width: 30px;height: 30px;margin-top: 10px;"> 科目一
+                    </div>
+                    <div class="row">
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/7920c46acf795cfe91990d3bb8c8635c.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">顺序练习</a>
+                        </div>
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/29f60eac40621dffb37c38f8d584f215.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">随机练习</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/cd9c3b69a1d8d0bc72b839ebdaeb5fd4.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">专项练习</a>
+                        </div>
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/f117d8ae0fca3bffd25ff4511664e607.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">错题复习</a>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-lg-6 offset-3">
+                            <el-button type="primary" class="btn-block">模拟考试</el-button>
+                        </div>
+                    </div>
+                </el-card>
+            </div>
+            <div id="cardss">
+                <el-card class="box-card">
+                    <div class="row" id="kmi">
+                        <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/cd9c3b69a1d8d0bc72b839ebdaeb5fd4.png" alt="" style="width: 30px;height: 30px;margin-top: 10px;"> 科目四
+                    </div>
+                    <div class="row">
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/7920c46acf795cfe91990d3bb8c8635c.png" alt="" class="paa">
+                            <span><a href="#" target="_blank" class="aclass">顺序练习</a> </span>
+                        </div>
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/29f60eac40621dffb37c38f8d584f215.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">随机练习</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/cd9c3b69a1d8d0bc72b839ebdaeb5fd4.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">专项练习</a>
+                        </div>
+                        <div class="pa">
+                            <img src="http://beijing.jiakaobaodian.com/core-assets/jiakao/application/home/files/f117d8ae0fca3bffd25ff4511664e607.png" alt="" class="paa">
+                            <a href="#" target="_blank" class="aclass">错题复习</a>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-lg-6 offset-3">
+                            <el-button type="primary" class="btn-block">模拟考试</el-button>
+                        </div>
+                    </div>
+                </el-card>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop='static' data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">用户登录</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <form id="updateform">
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-3 col-form-label">用户名</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" v-model="login.name" class="form-control" name="name" id="name" placeholder="手机/邮箱" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="password" class="col-sm-3 col-form-label">密码</label>
+                                    <div class="col-sm-5">
+                                        <input type="password" v-model="login.password" maxlength="16" class="form-control" name="password" id="password" placeholder="请输入密码">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="verificationcode" class="col-sm-3 col-form-label">验证码</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" v-model="ase" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" maxlength="4" class="form-control" name="verificationcode" id="verificationcode" placeholder="请输入验证码">
+                                    </div>
+                                    <canvas id="canvas" width="140px" height="38px"></canvas>
+                                    <a href="#" id="as" style="text-decoration: none;">换一张</a>
+                                    <button @click="send" type="button" class="btn" name="login" id="login" style="display: none;"></button>
+                                    <p id="msg" style="color: red" class="col-sm-8"></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <nav class="nav">
+                            <a class="nav-link active" href="./front/getpwd.html">忘记密码</a>
+                        </nav>
+                        <button type="button" class="btn btn-primary" name="logins" id="logins">登录</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="./js/front/indexss.js"></script>
+</body>
+
+</html>

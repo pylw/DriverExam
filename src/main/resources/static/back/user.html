@@ -68,8 +68,8 @@
               </select>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="license_type">驾照类型</label>
-                <select class="custom-select mr-sm-2" id="license_type" v-model="user.license_type" required>
+                <label for="licenseType">驾照类型</label>
+                <select class="custom-select mr-sm-2" id="licenseType" v-model="user.licenseType" required>
                     <option value="" selected>请选择驾照类型</option>
                     <option value="A1">小车</option>
                     <option value="C1">货车</option>
@@ -103,21 +103,21 @@
                 </thead>
                 <tbody>
                     <template v-for="(uu,key) in userList">
-                        <tr v-bind:key="uu.id">
+                        <tr v-bind:key="uu.userId">
                             <th scope="row">{{key+1}}</th>                                                                                           
                             <td>{{uu.phone}}</td>
                             <td>{{uu.email}}</td>
                             <td>{{uu.username}}</td>
                             <td>{{uu.sex}}</td>
                             <td>{{uu.city}}</td>
-                            <td>{{uu.license_type}}</td>
+                            <td>{{uu.licenseType}}</td>
                             <td>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <button type="button" name="" id="" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#updateModal" @click="showEdit(uu)">编辑</button>
                                     </div>
                                     <div class="col-lg-6">
-                                        <button type="button" name="" id="" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#removeModal" v-on:click="showRemove(uu.id)">删除</button>
+                                        <button type="button" name="" id="" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#removeModal" v-on:click="showRemove(uu.userId)">删除</button>
                                     </div>
                                 </div>
                             </td>
@@ -207,8 +207,8 @@
                                     </select>
                                   </div>
                                   <div class="col-md-6 mb-5">
-                                      <label for="license_type">驾照类型</label>
-                                      <select class="custom-select mr-sm-2" id="ulicense_type" v-model="u.license_type" required>
+                                      <label for="licenseType">驾照类型</label>
+                                      <select class="custom-select mr-sm-2" id="ulicenseType" v-model="u.licenseType" required>
                                           <option value="A1">大型客车</option>
                                           <option value="C1">小型汽车</option>
                                           <option value="A2">牵引车</option>
@@ -240,7 +240,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" @click="remove(u.id)" data-dismiss="modal">确认</button>
+                        <button type="button" class="btn btn-primary" @click="remove(u.userId)" data-dismiss="modal">确认</button>
                     </div>
                     </div>
                 </div>

@@ -65,12 +65,39 @@ public class UserController {
 		
 		return userService.confirmCode(account, code);
 	}
-	
+	@PostMapping("admin/havePhone")
+	public boolean havePhone(@RequestBody Map<String,String> map) {
+		String phone = map.get("phone");
+		String userId = map.get("userId");
+		return userService.clashPhone(phone, userId);
+	}
+	@PostMapping("admin/haveEmail")
+	public boolean haveEmail(@RequestBody Map<String,String> map) {
+		String email = map.get("email");
+		String userId = map.get("userId");
+		return userService.clashEmail(email, userId);
+	}
+	@PostMapping("admin/user/select")
+	public List<UserInfo> findUsers(@RequestBody Map<String,String> map){
+		return userService.findUsers(map);
+	}
 	@PostMapping("admin/user")
 	public List<UserInfo> findAll(){
 		return userService.findAll();
 	}
-	
+	@PostMapping("admin/user/total")
+	public int findUserSize(@RequestBody Map<String,String> map) {
+		return userService.findUserSize(map);
+	}
+	@PostMapping("admin/user/onepage")
+	public List<UserInfo> findOnePage(@RequestBody Map<String ,String> map){
+		return userService.findOnePage(map);
+	}
+	@PostMapping("admin/user/update")
+	public void update(@RequestBody Map<String,String> map) {
+		userService.update(map);
+	}
+
 	
 	@GetMapping("test")
 	public List<UserInfo> Login() {

@@ -62,6 +62,16 @@ public class UserService {
 	public List<UserInfo> findAll(){
 		return userMapper.findAllUsers();
 	}
+	//查找一页
+	public List<UserInfo> findOnePage(Map<String,String> map){
+		return userMapper.findOnePage(map);
+	}
+	public int findUserSize(Map<String,String> map) {
+		return userMapper.findUserSize(map);
+	}
+	public List<UserInfo> findUsers(Map<String,String> map){
+		return userMapper.findUsers(map);
+	}
 	
 	//根据用户名和密码查询数据库
 	public boolean login(String account,String password) {
@@ -76,16 +86,33 @@ public class UserService {
 	//判断是否已经存在一个同名的账户
 	public boolean haveName(String account) {
 		List<User> l1 = userMapper.findbyPhone(account);
-		List<User> l2= userMapper.findbyEmail(account);
+		List<User> l2 = userMapper.findbyEmail(account);
 		if(l1.size() == 0 && l2.size() == 0) {
 			return false;	
 		}
 		return true;
 	}
-	
+	public boolean clashPhone(String phone ,String userId) {
+		List<User> l1 = userMapper.clashPhone(phone, userId);
+		if(l1.size()==0)
+			return false;
+		return true;
+	}
+	public boolean clashEmail(String email, String userId) {
+		List<User> l1 = userMapper.clashEmail(email, userId);
+		if(l1.size()==0)
+			return false;
+		return true;
+	}
 	//添加用户
 	public void add(User u) {
 		userMapper.creat(u);
 		
 	}
+	//更新用户信息
+	public void update(Map<String,String> map) {
+		userMapper.update(map);
+	}
+
+	
 }

@@ -16,6 +16,8 @@ public class Exam {
 	private Integer userId;
 	/** 科目id */
 	private Integer subjectId;
+	/** 驾照类型 */
+	private String licenseType;
 	/** 开始日期和时间 */
 	private Timestamp startTime;
 	/** 结束日期和时间 */
@@ -34,18 +36,19 @@ public class Exam {
 	 * @param examId
 	 * @param userId
 	 * @param subjectId
+	 * @param licenseType
 	 * @param startTime
 	 * @param endTime
 	 * @param totalDone
 	 * @param totalError
 	 * @param score
 	 */
-	public Exam(Integer examId, Integer userId, Integer subjectId, Timestamp startTime, Timestamp endTime,
-			Integer totalDone, Integer totalError, Integer score) {
-		super();
+	public Exam(Integer examId, Integer userId, Integer subjectId, String licenseType, Timestamp startTime,
+			Timestamp endTime, Integer totalDone, Integer totalError, Integer score) {
 		this.examId = examId;
 		this.userId = userId;
 		this.subjectId = subjectId;
+		this.licenseType = licenseType;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.totalDone = totalDone;
@@ -93,6 +96,20 @@ public class Exam {
 	 */
 	public void setSubjectId(Integer subjectId) {
 		this.subjectId = subjectId;
+	}
+
+	/**
+	 * @return the licenseType
+	 */
+	public String getLicenseType() {
+		return licenseType;
+	}
+
+	/**
+	 * @param licenseType the licenseType to set
+	 */
+	public void setLicenseType(String licenseType) {
+		this.licenseType = licenseType;
 	}
 
 	/**

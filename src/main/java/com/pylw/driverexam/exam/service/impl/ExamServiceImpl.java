@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pylw.driverexam.exam.enums.SubjectQViewEnum;
 import com.pylw.driverexam.exam.mapper.ExamMapper;
 import com.pylw.driverexam.exam.model.Question;
 import com.pylw.driverexam.exam.model.SubjectInfo;
@@ -18,17 +19,23 @@ public class ExamServiceImpl implements ExamService {
 	ExamMapper examMapper;
 
 	@Override
-	public SubjectInfo getSubjectInfo(int subjectId) {
-		return examMapper.getSubjectInfo(subjectId);
+	public SubjectInfo getSubjectInfo(int subjectId, String licenseType) {
+		return examMapper.getSubjectInfo(subjectId, licenseType);
 	}
 	
 	@Override
-	public List<Question> getQuestions()  {
-		List<Question> questions = new ArrayList<>();
-		
-		
-		return questions;
+	public List<Question> getQuestions(SubjectQViewEnum subject)  {
+		return examMapper.getQuestions(subject);
 	}
+
+	@Override
+	public void createExam() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 	
 	

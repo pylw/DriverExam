@@ -22,7 +22,6 @@ public class SubjectInfo {
 	 */
 	public SubjectInfo(Integer subjectId, String licenseType, Integer singleScore, Integer totalTime,
 			Integer totalQuestion, Integer totalScore) {
-		super();
 		this.subjectId = subjectId;
 		this.licenseType = licenseType;
 		this.singleScore = singleScore;

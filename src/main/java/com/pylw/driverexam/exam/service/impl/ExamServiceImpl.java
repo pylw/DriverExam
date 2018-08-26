@@ -1,6 +1,5 @@
 package com.pylw.driverexam.exam.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.pylw.driverexam.exam.enums.SubjectQViewEnum;
 import com.pylw.driverexam.exam.mapper.ExamMapper;
+import com.pylw.driverexam.exam.model.Done;
+import com.pylw.driverexam.exam.model.Exam;
 import com.pylw.driverexam.exam.model.Question;
 import com.pylw.driverexam.exam.model.SubjectInfo;
 import com.pylw.driverexam.exam.service.ExamService;
@@ -22,21 +23,32 @@ public class ExamServiceImpl implements ExamService {
 	public SubjectInfo getSubjectInfo(int subjectId, String licenseType) {
 		return examMapper.getSubjectInfo(subjectId, licenseType);
 	}
-	
+
 	@Override
-	public List<Question> getQuestions(SubjectQViewEnum subject)  {
+	public List<Question> getQuestions(SubjectQViewEnum subject) {
 		return examMapper.getQuestions(subject);
 	}
 
 	@Override
-	public void createExam() {
-		// TODO Auto-generated method stub
-		
+	public Integer updateDone(Done done) {
+		if(done.getStatusTf() == null) {
+			return examMapper.updateDoneCn(done);
+		}
+		if(done.getStatusCn() == null) {
+			return examMapper.updateDoneTf(done);
+		}
+		return examMapper.updateDone(done);
 	}
 
+	@Override
+	public Integer submitExam(Exam exam) {
+		return examMapper.submitExam(exam);
+	}
 
-
-
+	@Override
+	public List<Exam> getExams(int userId) {
+		return examMapper.getExams(userId);
+	}
 	
-	
+
 }

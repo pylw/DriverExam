@@ -22,7 +22,7 @@ public interface ExamService {
 	 * @param subjectId
 	 * @return
 	 */
-	public SubjectInfo getSubjectInfo(int subjectId, String licenseType);
+	public SubjectInfo getSubjectInfo(Integer subjectId, String licenseType);
 
 	/**
 	 * 根据驾照和科目类型获取考试题目.
@@ -54,6 +54,6 @@ public interface ExamService {
 	 * @param userId
 	 * @return
 	 */
-	public List<Exam> getExams(int userId);
+	public List<Exam> getExams(Integer userId);
 
 }

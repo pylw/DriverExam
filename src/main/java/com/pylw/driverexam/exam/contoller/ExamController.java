@@ -67,7 +67,7 @@ public class ExamController {
 		case "D_4":
 			return ExamJSONResult.ok(service.getQuestions(SubjectQViewEnum.valueOf(subject)));
 		default:
-			return ExamJSONResult.error("其他驾照类型暂未支持，正在进行中……");
+			return ExamJSONResult.error("其他驾照类型暂未支持……");
 		}
 	}
 
@@ -82,11 +82,16 @@ public class ExamController {
 		if (done == null || done.getUserId() == null || done.getQuestionId() == null) {
 			return ExamJSONResult.error("数据为空！");
 		}
+		String tf = done.getStatusTf().toUpperCase();
+		String cn = done.getStatusCn().toUpperCase();
+		if (!cn.equals("C") || !cn.equals("N") || !tf.equals("T") || !tf.equals("F")) {
+			return ExamJSONResult.error("参数错误！");
+		}
 		int result = service.updateDone(done);
 		if (result > 0) {
 			return ExamJSONResult.ok();
 		} else {
-			return ExamJSONResult.error("" + result);
+			return ExamJSONResult.error(Integer.toString(result));
 		}
 	}
 
@@ -104,7 +109,7 @@ public class ExamController {
 			return ExamJSONResult.error("数据为空！");
 		}
 		int result = service.submitExam(exam);
-		return result > 0 ? ExamJSONResult.ok() : ExamJSONResult.error("" + result);
+		return result > 0 ? ExamJSONResult.ok() : ExamJSONResult.error(Integer.toString(result));
 	}
 
 	/**

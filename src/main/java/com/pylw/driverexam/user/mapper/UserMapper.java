@@ -47,6 +47,9 @@ public interface UserMapper {
 	@UpdateProvider(type=UserInfoProvider.class,method="update")
 	void update(Map<String,String> map);
 
+	@Select("select * from users where (phone=#{phone} or email=#{email}) and password=#{password}")
+	User userLogin(User user);
+
 
 	
 	

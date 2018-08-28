@@ -33,6 +33,11 @@ public class UserController {
 		return userService.login(map.get("name") ,map.get("password"));
 	}
 	
+	@PostMapping("/user/login")
+	public User userLogin(@RequestBody User user) {
+		return userService.userLogin(user);
+	}
+	
 	
 	@PostMapping("register/name")
 	public boolean isNameExist(@RequestBody Map<String ,String> map) {

@@ -114,5 +114,9 @@ public class UserService {
 		userMapper.update(map);
 	}
 
+	public User userLogin(User user) {
+		return userMapper.userLogin(user);
+	}
+
 	
 }

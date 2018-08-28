@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>后台登陆</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+  	<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+  	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+  	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+	<div id="login">
+    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false" data-backdrop='static' data-keyboard="false" style="display: block;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">管理员登录</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form id="updateform">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-3 col-form-label">用户名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" v-model="user.username" class="form-control" name="name" id="name" placeholder="手机/邮箱" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-3 col-form-label">密码</label>
+                                <div class="col-sm-8">
+                                    <input type="password" v-model="user.password" maxlength="16" class="form-control" name="password" id="password" placeholder="请输入密码">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <!-- <label for="verificationcode" class="col-sm-3 col-form-label">验证码</label>
+                                <div class="col-sm-3">
+                                    <input type="text" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" maxlength="4" class="form-control" name="verificationcode" id="verificationcode" placeholder="请输入验证码">
+                                </div>
+                                <canvas id="canvas" width="140px" height="38px"></canvas>
+                                <a href="#" id="as" style="text-decoration: none;">看不清图片</a>
+                                <button @click="send" type="button" class="btn" name="login" id="login"></button> -->
+                                <p id="msg" style="color: red" ></p>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <nav class="nav">
+                            <a class="nav-link active" href="getpassword.html">忘记密码</a>
+                        </nav> -->
+                        <button type="button" @click="send"  class="btn btn-primary" name="logins" id="logins">登录</button>
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>-->                    </div>
+               		</div>
+            </div>
+        </div>
+        </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <script src="js/back/login.js"></script>
+  </body>
+</html>

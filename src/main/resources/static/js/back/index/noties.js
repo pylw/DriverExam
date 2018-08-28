@@ -28,17 +28,31 @@
 // 		}
 // 	 }(pretags[i])) }
 // }
+var storeKey = "user";
+var storage = {
+    fetch:function(){
+        return JSON.parse(sessionStorage.getItem(storeKey) || "[]")
+    },
+    save:function(items){
+        sessionStorage.setItem(storeKey,JSON.stringify(items));
+    }
+}
 var back = new Vue({
 	el:"#back",
 	data:{
 		user:{
-			username:"app",
-			password:""
+			id:storage.fetch().id,
+			username:storage.fetch().username,
+			password:storage.fetch().password
 		}
 	},
 	methods:{
 		loginOut(){
-			
+			this.user.username="";
+			this.user.id=undefined;
+			this.user.password="";
+			storage.save(this.user);
+			location.href = "/login.html";
 		}
 	}
 });

@@ -7,6 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Simple Sidebar - Start Bootstrap Template</title>
+    <script type="text/javascript">
+    	if(JSON.parse(sessionStorage.getItem("user"))==null||JSON.parse(sessionStorage.getItem("user"))==""){
+			location.href = "/login.html";
+    	}
+    </script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/back/index/simple-sidebar.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" rel="stylesheet">
@@ -22,8 +27,8 @@
 			</button>
 			<a class="navbar-brand" style="color: #fff;" href="#"><i class="glyphicon glyphicon-th-large"></i>DriverExam</a>
 		</div><!-- navbar-header-->
-		<a href="#" class="head-nav-btn"><i class="glyphicon glyphicon-log-out"></i> 退出</a>
-		<a href="#" class="head-nav-btn"><i class="glyphicon glyphicon-user"></i> {{user.username}}</a>
+		<a href="javascript:void(0);" @click="loginOut" class="head-nav-btn" ><i class="glyphicon glyphicon-log-out"></i> 退出</a>
+		<a href="javascript:void(0);" class="head-nav-btn"><i class="glyphicon glyphicon-user"></i> {{user.username}}</a>
 		<!-- <a href="#" class="head-nav-btn"><i class="glyphicon glyphicon-comment"></i> 消息<span class="badge">3</span></a> -->
     </nav>
     <div id="wrapper" style="position:absolute;top:50px;bottom:0px;">
@@ -58,12 +63,12 @@
                     <a href="tabs.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-angle-down fa-stack-1x " aria-hidden="true"></i></span>统计分析</a>
                        <ul class="nav-pills1 nav-stacked" style="list-style-type:none;">
                         <li><a href="a" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>题目统计</a></li>
-                        <li><a href="b" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>用户个人统计</a></li>
+                        <li><a href="b" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>用户统计</a></li>
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="h" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file fa-stack-1x "></i></span>用户统计</a>
-                </li>
+                </li> -->
 				<!-- <li>
 
                     <a href="i" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>操作提示1</a>
@@ -101,12 +106,12 @@
                     <a href="tabs.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-angle-down fa-stack-1x"></i></span>统计分析</a>
                     <ul class="nav-pills nav-stacked" style="list-style-type:none;">
                         <li><a href="a" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>题目统计</a></li>
-                        <li><a href="b" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>用户个人统计</a></li>
+                        <li><a href="b" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>用户统计</a></li>
                     </ul>
                 </li>
-				<li>
+				<!-- <li>
                     <a href="h" class="J_menuItem"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file fa-stack-1x "></i></span>用户统计</a>
-                </li>
+                </li> -->
 				<!-- <li>
                     <a href="q"><span class="fa-stack fa-lg pull-left"><i class="fa fa-taxi fa-stack-1x "></i></span>●</a>
                 </li> -->

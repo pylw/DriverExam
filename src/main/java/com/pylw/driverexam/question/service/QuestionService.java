@@ -13,5 +13,7 @@ public interface QuestionService {
 
 	String getAnswer(Map<String, Integer> map);
 
+	List<Question> getErrorQuestion(Map<String, String> map);
 	
+	Integer getErrorTotal(Map<String, String> map);
 }

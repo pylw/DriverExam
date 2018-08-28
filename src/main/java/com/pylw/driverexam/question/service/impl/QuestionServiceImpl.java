@@ -32,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService{
 			}
 			question.setAnswer("");
 		}
-		if(!map.get("type").equals("1")) {
+		if(map.get("type")!=null&&!map.get("type").equals("1")) {
 			Collections.shuffle(questions);
 		}
 		return questions;
@@ -43,5 +43,25 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionMapper.getAnswer(map);
 	}
 
-	
+	@Override
+	public List<Question> getErrorQuestion(Map<String, String> map) {
+		
+		List<Question> questions = questionMapper.getErrorQuestion(map);
+		for(Question question:questions) {
+			if(question.getImg()!=""&&question.getImg()!=null) {
+				String[] img = question.getImg().split("/");
+				question.setImg("http://file.open.jiakaobaodian.com/tiku/res/"+img[img.length-1]);
+			}
+			question.setAnswer("");
+		}
+		if(map.get("type")!=null&&!map.get("type").equals("1")) {
+			Collections.shuffle(questions);
+		}
+		return questions;
+	}
+
+	@Override
+	public Integer getErrorTotal(Map<String, String> map) {
+		return questionMapper.getErrorTotal(map);
+	}
 }

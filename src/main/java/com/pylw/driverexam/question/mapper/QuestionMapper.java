@@ -21,4 +21,9 @@ public interface QuestionMapper {
 	@Select("select answer from questions where question_id = #{questionId}")
 	String getAnswer(Map<String, Integer> map);
 
+	@Select("select questions.* from questions,donelists where user_id=#{userId} and status_tf='F' and license_type=#{licenseType} and subject=#{subject} and questions.question_id = donelists.question_id order by questions.question_id")
+	List<Question> getErrorQuestion(Map<String, String> map);
+	
+	@Select("select count(*) from questions,donelists where user_id=#{userId} and status_tf='F' and license_type=#{licenseType} and subject=#{subject} and questions.question_id = donelists.question_id order by questions.question_id")
+	Integer getErrorTotal(Map<String, String> map);
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pylw.driverexam.exam.model.ExamJSONResult;
 import com.pylw.driverexam.question.model.Question;
 import com.pylw.driverexam.question.service.QuestionService;
 
@@ -33,5 +34,15 @@ public class QuestionController {
 	@PostMapping
 	public List<Question> find(@RequestBody(required=false) Map<String,String> map){
 		return questionService.find(map);
+	}
+	
+	@PostMapping("/error")
+	public List<Question> getErrorQuestion(@RequestBody() Map<String,String> map) {
+		return questionService.getErrorQuestion(map);
+	}
+	
+	@PostMapping("/errorTotal")
+	public Integer getErrorTotal(@RequestBody() Map<String,String> map) {
+		return questionService.getErrorTotal(map);
 	}
 }

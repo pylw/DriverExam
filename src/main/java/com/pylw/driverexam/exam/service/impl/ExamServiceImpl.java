@@ -20,7 +20,7 @@ public class ExamServiceImpl implements ExamService {
 	ExamMapper examMapper;
 
 	@Override
-	public SubjectInfo getSubjectInfo(int subjectId, String licenseType) {
+	public SubjectInfo getSubjectInfo(Integer subjectId, String licenseType) {
 		return examMapper.getSubjectInfo(subjectId, licenseType);
 	}
 
@@ -31,13 +31,9 @@ public class ExamServiceImpl implements ExamService {
 
 	@Override
 	public Integer updateDone(Done done) {
-		if(done.getStatusTf() == null) {
-			return examMapper.updateDoneCn(done);
-		}
-		if(done.getStatusCn() == null) {
-			return examMapper.updateDoneTf(done);
-		}
-		return examMapper.updateDone(done);
+		int result = examMapper.updateDone(done);
+		examMapper.updateCountQ(done.getQuestionId(), done.getStatusTf());
+		return result;
 	}
 
 	@Override
@@ -46,7 +42,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public List<Exam> getExams(int userId) {
+	public List<Exam> getExams(Integer userId) {
 		return examMapper.getExams(userId);
 	}
 	

@@ -33,14 +33,14 @@ public class ExamDynamicSqlProvider {
 				.VALUES("question_id", done.getQuestionId().toString());
 		if(done.getStatusCn() == null) {
 			sql.VALUES("status_tf", "'" + done.getStatusTf().toUpperCase() + "'");
-			if (!done.getStatusTf().equals("T") || !done.getStatusTf().equals("F")) {
+			if (!done.getStatusTf().equals("T") && !done.getStatusTf().equals("F")) {
 				return "Error";
 			}
 			return sql.toString()
 					+ "ON DUPLICATE KEY UPDATE status_tf=#{statusTf}";
 		}else if(done.getStatusTf() == null) {
 			sql.VALUES("status_cn", "'" + done.getStatusCn().toUpperCase() + "'");
-			if (!done.getStatusCn().equals("C") || !done.getStatusCn().equals("N") || !done.getStatusCn().equals("")) {
+			if (!done.getStatusCn().equals("C") && !done.getStatusCn().equals("N") && !done.getStatusCn().equals("")) {
 				return "Error";
 			}
 			return sql.toString()

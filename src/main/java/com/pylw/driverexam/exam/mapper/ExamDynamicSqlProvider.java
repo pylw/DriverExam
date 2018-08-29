@@ -40,7 +40,7 @@ public class ExamDynamicSqlProvider {
 					+ "ON DUPLICATE KEY UPDATE status_tf=#{statusTf}";
 		}else if(done.getStatusTf() == null) {
 			sql.VALUES("status_cn", "'" + done.getStatusCn().toUpperCase() + "'");
-			if (!done.getStatusCn().equals("T") || !done.getStatusCn().equals("F")) {
+			if (!done.getStatusCn().equals("C") || !done.getStatusCn().equals("N") || !done.getStatusCn().equals("")) {
 				return "Error";
 			}
 			return sql.toString()

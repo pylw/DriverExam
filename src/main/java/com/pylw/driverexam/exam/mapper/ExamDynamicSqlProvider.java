@@ -8,7 +8,6 @@ import com.pylw.driverexam.exam.model.ExamJSONResult;
 public class ExamDynamicSqlProvider {
 
 	public String updateCountQ(Integer questionId, String tf) {
-		tf = tf.toUpperCase();
 		SQL sql = new SQL().INSERT_INTO("count_question");
 		if(tf.equals("T")) {
 			sql.VALUES("question_id", questionId.toString())

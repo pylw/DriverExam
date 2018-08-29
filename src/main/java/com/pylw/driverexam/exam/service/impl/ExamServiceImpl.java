@@ -32,7 +32,8 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public Integer updateDone(Done done) {
 		int result = examMapper.updateDone(done);
-		examMapper.updateCountQ(done.getQuestionId(), done.getStatusTf());
+		if (done.getStatusTf() != null)
+			examMapper.updateCountQ(done.getQuestionId(), done.getStatusTf());
 		return result;
 	}
 

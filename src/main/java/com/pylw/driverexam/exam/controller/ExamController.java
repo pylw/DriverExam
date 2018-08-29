@@ -83,11 +83,6 @@ public class ExamController {
 		if (done == null || done.getUserId() == null || done.getQuestionId() == null) {
 			return ExamJSONResult.error("数据为空！");
 		}
-		String tf = done.getStatusTf().toUpperCase();
-		String cn = done.getStatusCn().toUpperCase();
-		if (!cn.equals("C") || !cn.equals("N") || !tf.equals("T") || !tf.equals("F")) {
-			return ExamJSONResult.error("参数错误！");
-		}
 		int result = service.updateDone(done);
 		if (result > 0) {
 			return ExamJSONResult.ok();

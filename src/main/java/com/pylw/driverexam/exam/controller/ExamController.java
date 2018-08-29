@@ -122,5 +122,12 @@ public class ExamController {
 		}
 		return ExamJSONResult.ok(exams);
 	}
+	
+	@GetMapping("/done/status")
+	public ExamJSONResult getStatus(@RequestParam(name="u", required=true) Integer userId,
+			@RequestParam(name="q", required=true) Integer questionId) {
+		
+		return ExamJSONResult.ok(service.getStatus(userId, questionId));
+	}
 
 }

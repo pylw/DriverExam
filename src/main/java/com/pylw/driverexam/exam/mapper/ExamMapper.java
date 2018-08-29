@@ -51,4 +51,8 @@ public interface ExamMapper {
 	/** 删除考试记录. */
 	@Delete("delete from exams where exam_id=#{examId}")
 	Integer delExam(Integer examId);
+
+	/** 获取donelist用户题目收藏/一般/屏蔽状态 */
+	@Select("select * from donelists where user_id=#{userId} and question_id=#{questionId}")
+	Done getStatus(Integer userId, Integer questionId);
 }

@@ -56,4 +56,12 @@ public interface ExamService {
 	 */
 	public List<Exam> getExams(Integer userId);
 
+	/**
+	 * 获取donelist收藏/一般/屏蔽状态.
+	 * @param userId
+	 * @param questionId
+	 * @return
+	 */
+	public Done getStatus(Integer userId, Integer questionId);
+
 }

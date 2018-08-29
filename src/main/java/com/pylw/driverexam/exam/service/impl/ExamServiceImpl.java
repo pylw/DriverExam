@@ -46,6 +46,11 @@ public class ExamServiceImpl implements ExamService {
 	public List<Exam> getExams(Integer userId) {
 		return examMapper.getExams(userId);
 	}
+
+	@Override
+	public Done getStatus(Integer userId, Integer questionId) {
+		return examMapper.getStatus(userId, questionId);
+	}
 	
 
 }

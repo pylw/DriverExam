@@ -3,11 +3,11 @@ package com.pylw.driverexam.exam.mapper;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.pylw.driverexam.exam.model.Done;
+import com.pylw.driverexam.exam.model.ExamJSONResult;
 
 public class ExamDynamicSqlProvider {
 
 	public String updateCountQ(Integer questionId, String tf) {
-		tf = tf.toUpperCase();
 		SQL sql = new SQL().INSERT_INTO("count_question");
 		if(tf.equals("T")) {
 			sql.VALUES("question_id", questionId.toString())
@@ -32,10 +32,16 @@ public class ExamDynamicSqlProvider {
 				.VALUES("question_id", done.getQuestionId().toString());
 		if(done.getStatusCn() == null) {
 			sql.VALUES("status_tf", "'" + done.getStatusTf().toUpperCase() + "'");
+			if (!done.getStatusTf().equals("T") && !done.getStatusTf().equals("F")) {
+				return "Error";
+			}
 			return sql.toString()
 					+ "ON DUPLICATE KEY UPDATE status_tf=#{statusTf}";
 		}else if(done.getStatusTf() == null) {
 			sql.VALUES("status_cn", "'" + done.getStatusCn().toUpperCase() + "'");
+			if (!done.getStatusCn().equals("C") && !done.getStatusCn().equals("N") && !done.getStatusCn().equals("")) {
+				return "Error";
+			}
 			return sql.toString()
 					+ "ON DUPLICATE KEY UPDATE status_cn=#{statusCn}";
 		}else {

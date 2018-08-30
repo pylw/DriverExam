@@ -83,11 +83,6 @@ public class ExamController {
 		if (done == null || done.getUserId() == null || done.getQuestionId() == null) {
 			return ExamJSONResult.error("数据为空！");
 		}
-		String tf = done.getStatusTf().toUpperCase();
-		String cn = done.getStatusCn().toUpperCase();
-		if (!cn.equals("C") || !cn.equals("N") || !tf.equals("T") || !tf.equals("F")) {
-			return ExamJSONResult.error("参数错误！");
-		}
 		int result = service.updateDone(done);
 		if (result > 0) {
 			return ExamJSONResult.ok();
@@ -126,6 +121,13 @@ public class ExamController {
 			return ExamJSONResult.error("未查询到相关记录！");
 		}
 		return ExamJSONResult.ok(exams);
+	}
+	
+	@GetMapping("/done/status")
+	public ExamJSONResult getStatus(@RequestParam(name="u", required=true) Integer userId,
+			@RequestParam(name="q", required=true) Integer questionId) {
+		
+		return ExamJSONResult.ok(service.getStatus(userId, questionId));
 	}
 
 }

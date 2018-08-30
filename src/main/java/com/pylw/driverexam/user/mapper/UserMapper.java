@@ -50,7 +50,12 @@ public interface UserMapper {
 	@Select("select * from users where (phone=#{phone} or email=#{email}) and password=#{password}")
 	User userLogin(User user);
 
+	@Select("select * from v_user where user_id = #{id}")
+	UserInfo findByUserId(Integer id);
 
+	@Update("update user_info set last_login=#{lastLogin},continuous_login=#{continuousLogin}")
+	void updateUserInfo(UserInfo userInfo);
 	
-	
+	@Select("select * from v_user order by continuous_login")
+	List<UserInfo> findAll();
 }

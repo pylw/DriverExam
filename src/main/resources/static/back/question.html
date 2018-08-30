@@ -52,11 +52,11 @@
                 
                 </div>
               <div class="col-md-3 mb-3">
-                <label for="license_type">驾照类型</label>
-                <select class="custom-select mr-sm-2" id="license_type" v-model="question.license_type">
+                <label for="licenseType">驾照类型</label>
+                <select class="custom-select mr-sm-2" id="licenseType" v-model="question.licenseType">
                     <option value="" selected>请选择驾照类型</option>
-                    <option value="A1">小车</option>
-                    <option value="C1">货车</option>
+                    <option value="C1">小车</option>
+                    <option value="A1">货车</option>
                     <option value="A2">客车</option>
                     <option value="D">摩托车</option>
                 </select>
@@ -66,12 +66,12 @@
                 <select class="custom-select mr-sm-2" id="subject" v-model="question.subject">
                     <option value="" selected>请选择科目类型</option>
                     <option value="1">科目1</option>
-                    <option value="2">科目4</option>
+                    <option value="4">科目4</option>
                 </select>
               </div>
               <div class="col-md-3 mb-3">
-                  <label for="question_type">问题类型</label>
-                  <select class="custom-select mr-sm-2" id="question_type" v-model="question.question_type">
+                  <label for="questionType">问题类型</label>
+                  <select class="custom-select mr-sm-2" id="questionType" v-model="question.questionType">
                       <option value="" selected>请选择问题类型</option>
                       <option value="2">单选题</option>
                       <option value="3">多选题</option>
@@ -104,7 +104,7 @@
                   </thead>
                   <tbody>
                       <template v-for="(qq,key) in questionList">
-                          <tr v-bind:key="qq.id">
+                          <tr v-bind:key="qq.questionId">
                               <th scope="row">{{key+1}}</th>
                               <td>{{qq.question}}</td>
                               <td>{{qq.optiona}}</td>
@@ -118,7 +118,7 @@
                                           <button type="button" name="" id="" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#Modal" @click="showEdit(qq)">编辑</button>
                                       </div>
                                       <div class="col-lg-6">
-                                          <button type="button" name="" id="" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#removeModal" v-on:click="showRemove(qq.id)">删除</button>
+                                          <button type="button" name="" id="" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#removeModal" v-on:click="showRemove(qq.questionId)">删除</button>
                                       </div>
                                   </div>
                               </td>
@@ -167,7 +167,7 @@
                   <div class="modal-dialog" role="document">
                       <div class="modal-content">
                       <div class="modal-header">
-                          <template v-if="q.id!=''">
+                          <template v-if="q.questionId!=''">
                               <h5 class="modal-title" id="editModalLabel">更新问题信息</h5>
                           </template>
                           <template v-else>
@@ -191,9 +191,9 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
-                                        <label for="license_type">驾照类型</label>
-                                        <select class="custom-select mr-sm-2" id="qlicense_type" v-model="q.license_type" required>
-                                            <template v-if="q.id==''">
+                                        <label for="licenseType">驾照类型</label>
+                                        <select class="custom-select mr-sm-2" id="qlicenseType" v-model="q.licenseType" required>
+                                            <template v-if="q.questionId==''">
                                                 <option value="" selected>请选择驾照类型</option>
                                             </template>
                                             <option value="A1">小车</option>
@@ -205,7 +205,7 @@
                                         <div class="col-md-4 mb-3">
                                         <label for="subject">科目类型</label>
                                         <select class="custom-select mr-sm-2" id="qsubject" v-model="q.subject" required>
-                                            <template v-if="q.id==''">
+                                            <template v-if="q.questionId==''">
                                                 <option value="" selected>请选择科目类型</option>
                                             </template>
                                             <option value="1">科目1</option>
@@ -213,9 +213,9 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="question_type">问题类型</label>
-                                        <select class="custom-select mr-sm-2" id="qquestion_type" v-model="q.question_type" required>
-                                            <template v-if="q.id==''">
+                                        <label for="questionType">问题类型</label>
+                                        <select class="custom-select mr-sm-2" id="qquestionType" v-model="q.questionType" required>
+                                            <template v-if="q.questionId==''">
                                                 <option value="" selected>请选择问题类型</option>
                                             </template>
                                             <option value="2">单选题</option>
@@ -252,23 +252,29 @@
                                 </div>
                                 <div class="form-row">
                                         <div class="col-md-8 mb-8">
-                                            <label for="optionc">图片</label>
-                                            <div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">
+                                        <div style="width: 200px; height: 150px;">
+                                            <canvas ref="imgPreview" height="0" width="0"></canvas>
+                                        </div>
+                                        <input class="fileinput-new"  name="imgLocal" id="imgLocal" type='file' accept="image/*" @change="selectImg" />
+                                            <!-- <div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">
                                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                        <img :src="q.img" alt="" />
+                                                        <img :src="q.img"  alt=""/>
                                                     </div>
                                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                                                     <div>
                                                         <span class="btn btn-success btn-file"> <span
                                                                             class="fileinput-new">选择图片</span> <span class="fileinput-exists">更改</span> <input type="file" name="uploadImage" id="uploadImage" /></span>
-                                                        <a href="#" class="btn btn-success fileinput-exists" data-dismiss="fileinput">移除</a>
+                                                        <a href="#" class="btn btn-success fileinput-exists" data-dismiss="fileinput">移除</a> -->
                                                         <!-- <span>请选择1M以内图片</span> -->
-                                                    </div>
-                                                </div>
+                                                    <!-- </div>
+                                                </div> -->
+                                               
                                         </div>
+                                        
                                     </div>
                                     <div class="form-row">
                                             <div class="col-md-3 mb-2">
+                                            
                                                 <label for="answer">答案</label>
                                                 <input type="text" class="form-control" id="qanswer" placeholder="请题目答案 单选/多选/判断题答案，如A/ABC/A（A表示对，B表示错）" v-model="q.answer" required>
             
@@ -282,7 +288,7 @@
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                              <template v-if="q.id!=''">
+                              <template v-if="q.questionId!=''">
                                     <button type="submit" class="btn btn-primary" @click="update(q)">更新</button>
                                 </template>
                                 <template v-else>
@@ -308,7 +314,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                          <button type="button" class="btn btn-primary" @click="remove(q.id)" data-dismiss="modal">确认</button>
+                          <button type="button" class="btn btn-primary" @click="remove(q.questionId)" data-dismiss="modal">确认</button>
                       </div>
                       </div>
                   </div>

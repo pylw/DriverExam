@@ -5,17 +5,17 @@ var question =  new Vue({
         // 总数
         total : undefined,
         // 每页大小
-        size : 10,
+        size : 20,
         // 总页数
         page: undefined,
         // 当前页
         current : 1,
         // 用于添加和修改字段
         q:{
-            id:undefined,
-            license_type:'',
+        	questionId:undefined,
+            licenseType:'',
             subject:'',
-            question_type:'',
+            questionType:'',
             question:'',
             img:'',
             optiona:'',
@@ -23,14 +23,15 @@ var question =  new Vue({
             optionc:'',
             optiond:'',
             answer:'',
-            explain:''
+            explain:'',
+            imgFile:Object //图片资源
         },
         // 用于查询
         question:{
-            id:undefined,
-            license_type:'',
+        	questionId:undefined,
+            licenseType:'',
             subject:'',
-            question_type:'',
+            questionType:'',
             question:'',
             img:'',
             optiona:'',
@@ -46,8 +47,14 @@ var question =  new Vue({
     created() {
         // 获取数据库用户总数
         // 补  通过axios
-        axios.get(
-            'question/total'
+        axios.post(
+            '/question/total',
+            null,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+			}
         ).then((r)=>{
             this.total=r.data;
             // 获得总页数
@@ -56,12 +63,17 @@ var question =  new Vue({
 
         // 获取 size 条用户放到List中
         // 补  通过axios
-        axios.get(
-            '/question',
+        axios.post(
+            '/admin/question/onepage',
             {
                 'current':this.current,
                 'size':this.size
-            }
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+			}
         ).then((r)=>{
             this.questionList = r.data;
 
@@ -72,11 +84,11 @@ var question =  new Vue({
     },
     methods:{
         // 封装初始化
-        qInit(q,id='',license_type='',subject='',question_type='',question='',img='',optiona='',optionb='',optionc='',optiond='',answer='',explain=''){
-            q.id=id;
-            q.license_type=license_type;
+        qInit(q,questionId='',licenseType='',subject='',questionType='',question='',img='',optiona='',optionb='',optionc='',optiond='',answer='',explain=''){
+            q.questionId=questionId;
+            q.licenseType=licenseType;
             q.subject=subject;
-            q.question_type=question_type;
+            q.questionType=questionType;
             q.question=question;
             q.img=img;
             q.optiona=optiona;
@@ -90,11 +102,20 @@ var question =  new Vue({
         updateList(){
             // 封装 获得List 传参(当前页this.current,每页this.size) 
             // 补  通过axios
-            axios.get(
-                '/question',
+            axios.post(
+                '/admin/question/onepage',
                 {
+                    'question':this.question.question,
+                    'licenseType':this.question.licenseType,
+                    'subject':this.question.subject,
+                    'questionType':this.question.questionType,
                     'current':this.current,
                     'size':this.size
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 }
             ).then((r)=>{
                 this.questionList = r.data;
@@ -105,30 +126,49 @@ var question =  new Vue({
         },
         // 点击编辑按钮后的处理
         showEdit(qq){
-            this.qInit(this.q,qq.id,qq.license_type,qq.subject,qq.question_type,qq.question,qq.img,qq.optiona,qq.optionb,qq.optionc,qq.optiond,qq.answer,qq.explain);
+        	
+            this.qInit(this.q,qq.questionId,qq.licenseType,qq.subject,qq.questionType,qq.question,qq.img,qq.optiona,qq.optionb,qq.optionc,qq.optiond,qq.answer,qq.explain);
         },
         // 点击添加按钮后的处理
         showAdd(){
             this.qInit(this.q);
         },
         // 点击删除按钮后的处理
-        showRemove(id){
-            this.qInit(this.q,id);
+        showRemove(questionId){
+        	console.log(questionId)
+            this.qInit(this.q,questionId);
         },
         // 更新问题信息 需处理好  img
         update(question){
-            if(question.question==''|| question.license_type==''||question.subject==''||question.question_type==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
+            if(question.question==''|| question.licenseType==''||question.subject==''||question.questionType==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
                 return false;
             }
             // 检测所更新数据邮件或手机号 是否已存在  注意 要排除自身无修改的情况
             // 补  通过axios
-            var phone = document.getElementById("uphone");
-            console.log(phone);
-            phone.setCustomValidity('该电话已注册');
+//            var phone = document.getElementById("uphone");
+//            console.log(phone);
+//            phone.setCustomValidity('该电话已注册');
 
             // 更新数据库数据  密码无需更新
             // 补  通过axios
-
+            console.log(this.q)
+            let param = new window.FormData();
+            
+        	param.append('questionId', this.q.questionId);
+            param.append('licenseType', this.q.licenseType);
+            param.append('subject', this.q.subject);
+            param.append('questionType', this.q.questionType);
+            param.append('question', this.q.question);
+            param.append('img', this.q.img);
+            param.append('optiona', this.q.optiona);
+            param.append('optionb', this.q.optionb);
+            param.append('optionc', this.q.optionc);
+            param.append('optiond', this.q.optiond);
+            param.append('answer', this.q.answer);
+            param.append('explain', this.q.explain);
+            param.append('imgFile', this.q.imgFile);
+            
+            axios.post('/admin/question/update',param)
 
 
             // 更新完成后重新获取数据
@@ -155,22 +195,82 @@ var question =  new Vue({
             // }
             $('#Modal').modal('hide');
         },
+        selectImg(event){
+            let that=this;
+            this.q.imgFile = $(this.$el).find('#imgLocal')[0].files[0];//取到上传的图片
+             console.log(this.q.imgFile);//由打印的可以看到，图片    信息就在files[0]里面
+            let formData = new FormData();//通过formdata上传
+            formData.append('file',this.q.imgFile);
+
+            let file = event.target.files[0]
+            let reader = new FileReader()
+            let img = new Image()
+            reader.readAsDataURL(file)
+            reader.onloadend = (e) => {
+                img.src = e.target.result
+            }
+
+            let canvas = this.$refs['imgPreview']
+            let context = canvas.getContext('2d')
+            img.onload = () => {
+                img.width = 200
+                img.height = 150
+                // 设置canvas大小
+                canvas.width = 200
+                canvas.height = 150
+                // 清空canvas
+                context.clearRect(0, 0, 200, 150)
+                // 画图
+                context.drawImage(img, 0, 0, 200, 150)
+            }
+
+        },
+        
+        
         // 添加问题 同样需处理问题
         add(question){
-            if(question.question==''|| question.license_type==''||question.subject==''||question.question_type==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
+            if(question.question==''|| question.licenseType==''||question.subject==''||question.questionType==''||question.answer==''||question.explain==''||question.optiona==''||question.optionb==''){
                 return false;
             }
             // 增加数据 
             // 补  通过axios
-            axios.post(
-                'question/add',
-                {
-                    'question':this.q
-                }
-            ).then((r)=>{
-
-            })
-
+            let param = new window.FormData();
+            
+        	param.append('questionId', this.q.questionId);
+            param.append('licenseType', this.q.licenseType);
+            param.append('subject', this.q.subject);
+            param.append('questionType', this.q.questionType);
+            param.append('question', this.q.question);
+            param.append('img', this.q.img);
+            param.append('optiona', this.q.optiona);
+            param.append('optionb', this.q.optionb);
+            param.append('optionc', this.q.optionc);
+            param.append('optiond', this.q.optiond);
+            param.append('answer', this.q.answer);
+            param.append('explain', this.q.explain);
+            param.append('imgFile', this.q.imgFile);
+            
+        	console.log(param)
+            axios.post('/admin/question/add',param)
+//            axios.post(
+//                '/admin/question/add',
+//                {
+//                	'licenseType':this.q.licenseType,
+//                    'subject':this.q.subject,
+//                    'questionType':this.q.questionType,
+//                    'question':this.q.question,
+//                    'img':this.q.img,
+//                    'optiona':this.q.optiona,
+//                    'optionb':this.q.optionb,
+//                    'optionc':this.q.optionc,
+//                    'optiond':this.q.optiond,
+//                    'answer':this.q.answer,
+//                    'explain':this.q.explain,
+//                    'formData':this.q.formData
+//                }
+//            ).then((r)=>{
+//            })
+            
             // 总数增加
             this.total +=1;
             this.page = Math.ceil(this.total/this.size);
@@ -187,10 +287,18 @@ var question =  new Vue({
         query(question){
             // 获取 total  并根据total 更改current  mybatis 使用if 操作 判断question 中的字段不为空 进行选择查询
             // 补  通过axios
-            axios.get(
-                'question/total',
+            axios.post(
+                '/admin/question/questionSize',
                 {
-                    'question':this.question
+                    'question':this.question.question,
+                    'licenseType':this.question.licenseType,
+                    'subject':this.question.subject,
+                    'questionType':this.question.questionType
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 }
             ).then((r)=>{
                 this.current = 1;
@@ -208,10 +316,15 @@ var question =  new Vue({
         remove(id){
             // 从数据库删除数据
             // 补  通过axios
-            axios.get(
-                '/question/delete',
+            axios.post(
+                '/admin/question/delete',
                 {
-                    'id':id
+                    'questionId':id
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 }
             ).then((r)=>{
                 
@@ -268,7 +381,24 @@ var question =  new Vue({
             this.current = this.page;
             // 更新List
             this.updateList();
-        }
+        },
+        // //把图片编码为Base64
+        // toBase64(event){
+        // 	if(event.target.files.length>0){
+        //         let file = event.target.files[0];
+        //         // 读取图片
+        //         let reader = new FileReader();
+        //         let img = new Image();
+        //         this.imgName = file.name;
+        //         reader.readAsDataURL(file);
+        //         reader.onloadend = (event) => {
+        //             img.src = event.target.result;
+        //             this.base64 = reader.result;
+        //         }
+        //     }
+            
+        // }
+        
     }
 
 })

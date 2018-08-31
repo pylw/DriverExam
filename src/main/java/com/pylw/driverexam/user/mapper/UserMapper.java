@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.pylw.driverexam.user.model.User;
+import com.pylw.driverexam.user.model.UserExams;
 import com.pylw.driverexam.user.model.UserInfo;
 import org.apache.ibatis.annotations.*;
 @Mapper
@@ -53,9 +54,13 @@ public interface UserMapper {
 	@Select("select * from v_user where user_id = #{id}")
 	UserInfo findByUserId(Integer id);
 
-	@Update("update user_info set last_login=#{lastLogin},continuous_login=#{continuousLogin}")
+	@Update("update user_info set last_login=#{lastLogin},continuous_login=#{continuousLogin} where user_id=#{userId}")
 	void updateUserInfo(UserInfo userInfo);
 	
 	@Select("select * from v_user order by continuous_login")
 	List<UserInfo> findAll();
+
+
+	@Select("select * from user_info,exams,users where user_info.user_id=exams.user_id and user_info.user_id=users.user_id order by score desc,end_time-start_time")
+	List<UserExams> findOrderScore();
 }

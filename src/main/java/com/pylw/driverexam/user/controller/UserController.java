@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pylw.driverexam.user.model.User;
+import com.pylw.driverexam.user.model.UserExams;
 import com.pylw.driverexam.user.model.UserInfo;
 import com.pylw.driverexam.user.service.UserService;
 
@@ -112,5 +113,10 @@ public class UserController {
 	@GetMapping("/user/findAll")
 	public List<UserInfo> findAllUserInfo(){
 		return userService.findAllUserInfo();
+	}
+	
+	@GetMapping("/user/byscore")
+	public List<UserExams> findOrderScore(){
+		return userService.findOrderScore();
 	}
 }

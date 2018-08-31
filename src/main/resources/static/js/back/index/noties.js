@@ -46,6 +46,9 @@ var back = new Vue({
 			password:storage.fetch().password
 		}
 	},
+	created(){
+		
+	},
 	methods:{
 		loginOut(){
 			this.user.username="";

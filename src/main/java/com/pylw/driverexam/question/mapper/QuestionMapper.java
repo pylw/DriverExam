@@ -42,4 +42,9 @@ public interface QuestionMapper {
 	
 	@UpdateProvider(method = "update", type = QuestionProvider.class)
 	void update(HttpServletRequest request);
+
+	@Select("select (select sum(total_error) from questions,count_question where count_question.question_id=questions.question_id and license_type=#{licenseType} and subject=#{subject} and question_type=#{questionType}) /"
+			+ " (select sum(total_done) from questions,count_question where questions.question_id=count_question.question_id and license_type=#{licenseType} and subject=#{subject} and question_type=#{questionType})")
+	//@Select("select sum(total_done) from questions,count_question where count_question.question_id=questions.question_id and license_type=#{licenseType} and subject=#{subject} and question_type=#{questionType}")
+	Double getErrorRate(String licenseType,Integer subject,Integer questionType);
 }

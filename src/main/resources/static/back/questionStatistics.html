@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <meta charset="utf-8">
+       
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+ 
+   </head>
+   <body>
+       <div id = "questionStatistics">
+    		<div id="container" style="height: 500px; width: 1000px; margin:0 auto;"></div>
+    	</div>
+       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios.js"></script>
+       <script type="text/javascript">
+       
+       var q = new Vue({
+    	   el:"#questionStatistics",
+    	   data:{
+               errorRate:[],
+               option : {
+            	  /*  title : {
+                       text: '各类题型错误率',
+                       //subtext: '纯属虚构',
+                       x:'center'
+                   }, */
+            	       color: ['#003366', '#e5323e', '#4cabce'],
+            	       tooltip: {
+            	           trigger: 'axis',
+            	           axisPointer: {
+            	               type: 'shadow'
+            	           }
+            	       },
+            	       legend: {
+            	           data: ['单选题', '多选题', '判断题']
+            	       },
+            	       toolbox: {
+            	           show: true,
+            	           orient: 'vertical',
+            	           left: 'right',
+            	           top: 'center',
+            	           feature: {
+            	               mark: {show: true},
+            	               dataView: {show: true, readOnly: false},
+            	               magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            	               restore: {show: true},
+            	               saveAsImage: {show: true}
+            	           }
+            	       },
+            	       calculable: true,
+            	       xAxis: [
+            	           {
+            	               type: 'category',
+            	               axisTick: {show: false},
+            	               data: ['科目1-小车','科目1-客车','科目1-货车','科目1-摩托车','科目4-小车','科目4-客车','科目4-货车','科目4-摩托车']
+            	           }
+            	       ],
+            	       yAxis: [
+            	           {
+            	               type: 'value'
+            	           }
+            	       ],
+            	       series: [
+            	           {
+            	               name: '单选题',
+            	               type: 'bar',
+            	               barGap: 0,
+            	               label: '',
+            	               data: []
+            	           },
+            	           {
+            	               name: '多选题',
+            	               type: 'bar',
+            	               label: '',
+            	               data: []
+            	           },
+            	           {
+            	               name: '判断题',
+            	               type: 'bar',
+            	               label: '',
+            	               data: []
+            	           }
+            	       ]
+            	   }
+           },
+           created() {
+           },
+           mounted() {
+        	   var dom = document.getElementById("container");
+        	   var myChart = echarts.init(dom);
+        	   var app = {};
+        	   option = null;
+        	   var posList = [
+        	       'left', 'right', 'top', 'bottom',
+        	       'inside',
+        	       'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+        	       'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+        	   ];
+
+        	   app.configParameters = {
+        	       rotate: {
+        	           min: -90,
+        	           max: 90
+        	       },
+        	       align: {
+        	           options: {
+        	               left: 'left',
+        	               center: 'center',
+        	               right: 'right'
+        	           }
+        	       },
+        	       verticalAlign: {
+        	           options: {
+        	               top: 'top',
+        	               middle: 'middle',
+        	               bottom: 'bottom'
+        	           }
+        	       },
+        	       position: {
+        	           options: echarts.util.reduce(posList, function (map, pos) {
+        	               map[pos] = pos;
+        	               return map;
+        	           }, {})
+        	       },
+        	       distance: {
+        	           min: 0,
+        	           max: 100
+        	       }
+        	   };
+
+        	   app.config = {
+        	       rotate: 90,
+        	       align: 'left',
+        	       verticalAlign: 'middle',
+        	       position: 'insideBottom',
+        	       distance: 15,
+        	       onChange: function () {
+        	           var labelOption = {
+        	               normal: {
+        	                   rotate: app.config.rotate,
+        	                   align: app.config.align,
+        	                   verticalAlign: app.config.verticalAlign,
+        	                   position: app.config.position,
+        	                   distance: app.config.distance
+        	               }
+        	           };
+        	           myChart.setOption({
+        	               series: [{
+        	                   label: labelOption
+        	               }, {
+        	                   label: labelOption
+        	               }, {
+        	                   label: labelOption
+        	               }, {
+        	                   label: labelOption
+        	               }]
+        	           });
+        	       }
+        	   };
+
+
+        	   var labelOption = {
+        	       normal: {
+        	           show: true,
+        	           position: app.config.position,
+        	           distance: app.config.distance,
+        	           align: app.config.align,
+        	           verticalAlign: app.config.verticalAlign,
+        	           rotate: app.config.rotate,
+        	           formatter: '{c}  {name|{a}}',
+        	           fontSize: 16,
+        	           rich: {
+        	               name: {
+        	                   textBorderColor: '#fff'
+        	               }
+        	           }
+        	       }
+        	   };
+        	   this.option.series[0].label= labelOption;
+        	   this.option.series[1].label= labelOption;
+        	   this.option.series[2].label= labelOption;
+        	   axios.get(
+                       '/question/errorRate'
+                   ).then((r)=>{
+                       this.errorRate = r.data;
+                       for(var i=0;i<this.errorRate.length;i++){
+                    	   console.log(this.errorRate[i]);
+                   		   if(this.errorRate[i]==null||this.errorRate[i]==0){
+                   			   this.option.series[i%3].data.push(0);
+                   		   }else{
+                   			   this.option.series[i%3].data.push(this.errorRate[i])
+                   		   }
+                       }
+                       console.log(this.option.series[0].data)
+                       console.log(this.option.series[1].data)
+                       console.log(this.option.series[2].data)
+                       if (this.option && typeof this.option === "object") {
+                           myChart.setOption(this.option, true);
+                       }
+                   })
+           },
+       })
+       </script>
+   </body>
+</html>

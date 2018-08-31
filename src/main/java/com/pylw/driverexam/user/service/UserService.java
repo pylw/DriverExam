@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.pylw.driverexam.user.mapper.UserMapper;
 import com.pylw.driverexam.user.model.User;
+import com.pylw.driverexam.user.model.UserExams;
 import com.pylw.driverexam.user.model.UserInfo;
 
 @Service
@@ -167,5 +168,9 @@ public class UserService {
 		userInfo.setLastLogin(dateString);
 		userMapper.updateUserInfo(userInfo);
 		return userMapper.userLogin(user);
+	}
+
+	public List<UserExams> findOrderScore() {
+		return userMapper.findOrderScore();
 	}
 }

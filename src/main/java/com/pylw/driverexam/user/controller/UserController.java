@@ -1,16 +1,14 @@
 package com.pylw.driverexam.user.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pylw.driverexam.user.model.User;
@@ -119,4 +117,21 @@ public class UserController {
 	public List<UserExams> findOrderScore(){
 		return userService.findOrderScore();
 	}
+	
+	
+	@GetMapping("/userInfo")
+	public UserInfo getUserInfo(@RequestParam Integer userId) {
+		return userService.getUserInfo(userId);
+	}
+	
+	@PostMapping("/userInfo/change")
+	public Integer updateUserInfo(@RequestBody Map<String ,String> map) {
+		return userService.updateUserInfo(map);
+	}
+	
+//	@GetMapping("/userInfo/count")
+//	public UserInfo getUserInfo(@RequestParam Integer userId) {
+//		return userService.getUserInfo(userId);
+//	}
+	
 }

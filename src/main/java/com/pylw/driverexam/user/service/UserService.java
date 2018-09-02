@@ -176,4 +176,14 @@ public class UserService {
 	public List<UserExams> findOrderScore() {
 		return userMapper.findOrderScore();
 	}
+
+	public UserInfo getUserInfo(Integer userId) {
+		return userMapper.findByUserId(userId);
+	}
+
+	public Integer updateUserInfo(Map<String, String> map) {
+		return userMapper.update(map);
+	}
+	
 }
+

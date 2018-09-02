@@ -8,21 +8,22 @@ public class User {
 
 	public User() {
 	}
+
 	public User(int userId, String phone, String email, String password) {
 		this.userId = userId;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
 	}
-	
 
-	
 	public int getUserId() {
 		return userId;
 	}
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -47,4 +48,3 @@ public class User {
 		this.password = password;
 	}
 }
-
